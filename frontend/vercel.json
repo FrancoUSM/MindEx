@@ -3,6 +3,11 @@
     {
       "source": "/api/:path*",
       "destination": "https://mindex.redwave-f372ea34.brazilsouth.azurecontainerapps.io/api/:path*"
+    },
+    {
+        "source": "(/.*)",
+        "destination": "/index.html"
     }
+
   ]
 }
