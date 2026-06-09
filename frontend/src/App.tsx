@@ -10,7 +10,7 @@ import EvaluationsPage from "./pages/EvaluationsPage";
 import AuthPage from "./pages/AuthPage";
 import SettingsPage from "./pages/SettingsPage";
 import HistoryPage from "./pages/HistoryPage";
-import ProfessionalsPage from "./pages/ProfessionalsPage";
+//import ProfessionalsPage from "./pages/ProfessionalsPage";
 import NotFound from "./pages/NotFound";
 import B2BOnboardingPage from "./pages/B2BOnboardingPage";
 import { useEffect } from "react";
@@ -18,14 +18,7 @@ import { useEffect } from "react";
 const queryClient = new QueryClient();
 
 const App = () => {
-  /*useEffect(() => {
-    fetch("http://localhost:8080/api/usuario/crear")
-    .then(res =>{
-      console.log("Status:", res.status);
-      return res.text();
-    } )
-    .then(data => console.log(data))
-  },[])*/
+
   return (
 
 
@@ -36,7 +29,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/professionals" element={<ProfessionalsPage />} />
+          {/*<Route path="/professionals" element={<ProfessionalsPage />} />*/}
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/checkin" element={
             <AppLayout>

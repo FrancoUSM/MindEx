@@ -182,7 +182,7 @@ const Index = () => {
       >
         <div className="flex items-center gap-3 bg-gradient-to-r from-hero-blue/90 to-hero-cyan/90 backdrop-blur-md border border-hero-text/20 rounded-full px-5 py-3 shadow-2xl shadow-hero-blue/30 hover:shadow-hero-blue/50 transition-all duration-300 hover:scale-105">
           <Sparkles className="h-5 w-5 text-hero-text" />
-          <span className="text-hero-text font-semibold text-sm">Conoce más sobre Mindexa</span>
+          <span className="text-hero-text font-semibold text-sm">Conoce más sobre MindEx</span>
           <ExternalLink className="h-4 w-4 text-hero-text/80 group-hover:translate-x-1 transition-transform" />
         </div>
       </a>
@@ -264,6 +264,7 @@ const Index = () => {
             </Card>
 
             {/* Profesionales Card */}
+            {/*
             <Card 
               className="group cursor-pointer bg-[hsl(217,33%,10%)]/80 backdrop-blur-xl border-2 border-[hsl(160,84%,39%)]/30 hover:border-[hsl(160,84%,39%)]/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[hsl(160,84%,39%)]/20"
               onClick={() => navigate('/professionals')}
@@ -286,6 +287,7 @@ const Index = () => {
                 </div>
               </CardContent>
             </Card>
+            */}
           </div>
 
           {/* Pricing Section Title */}
@@ -420,7 +422,7 @@ const Index = () => {
       {/* Footer subtle */}
       <div className="py-8 text-center relative z-10">
         <p className="text-xs text-hero-text-muted/50">
-          © 2025 Mindexa — Cuidando tu salud mental
+          © 2025 MindEx — Cuidando tu salud mental
         </p>
       </div>
     </div>
