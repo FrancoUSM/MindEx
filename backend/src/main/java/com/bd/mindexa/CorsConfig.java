@@ -17,10 +17,11 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of(
-            "http://localhost:*",
-            "http://127.0.0.1:*",
-            "http://mindexa-frontend:*"
-        ));
+        "http://localhost:*",
+        "http://127.0.0.1:*",
+        "https://mindex.redwave-f372ea34.brazilsouth.azurecontainerapps.io",
+        "https://*.azurecontainerapps.io"
+));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
