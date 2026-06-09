@@ -42,5 +42,6 @@ jobs:
           containerAppName: mindex
           resourceGroup: appsvc_linux_chilecentral
           imageToBuild: mindex.azurecr.io/mindex:${{ github.sha }}
+          targetPort: 8080
 
 
