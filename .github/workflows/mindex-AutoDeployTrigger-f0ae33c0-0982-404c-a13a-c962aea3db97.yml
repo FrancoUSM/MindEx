@@ -34,16 +34,13 @@ jobs:
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
-          appSourcePath: ${{ github.workspace }}
-          dockerfilePathKey_: ./docker
-          targetLabelKey_: _targetLabel_
-          registryUrl: 
+          appSourcePath: ${{ github.workspace }}/backend
+          dockerfilePath: Dockerfile
+          registryUrl: mindex.azurecr.io
           registryUsername: ${{ secrets.MINDEX_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.MINDEX_REGISTRY_PASSWORD }}
           containerAppName: mindex
           resourceGroup: appsvc_linux_chilecentral
-          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
+          imageToBuild: mindex.azurecr.io/mindex:${{ github.sha }}
 
 
