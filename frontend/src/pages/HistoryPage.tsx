@@ -51,8 +51,8 @@ function getTrendIcon(records: ParsedCheckin[], index: number) {
   if (index >= records.length - 1) return <Minus className="h-4 w-4 text-slate-400" />;
   const current = records[index].rhi ?? 0;
   const prev = records[index + 1].rhi ?? 0;
-  if (current < prev) return <TrendingDown className="h-4 w-4 text-green-500" title="Mejora respecto al anterior" />;
-  if (current > prev) return <TrendingUp className="h-4 w-4 text-red-500" title="Aumento respecto al anterior" />;
+  if (current < prev) return <TrendingDown className="h-4 w-4 text-green-500" aria-label="Mejora respecto al anterior" />;
+  if (current > prev) return <TrendingUp className="h-4 w-4 text-red-500" aria-label="Aumento respecto al anterior" />;
   return <Minus className="h-4 w-4 text-slate-400" />;
 }
 

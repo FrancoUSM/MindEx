@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bd.mindexa.models.usuario.Usuario;
+import com.bd.mindexa.dto.admin.DTOActualizarEmpleado;
 import com.bd.mindexa.dto.registros.DTORegistroUsuarioEmpresaRequest;
 import com.bd.mindexa.models.usuario.Empleado;
 import com.bd.mindexa.services.usuario.ServicioUsuario;
@@ -29,19 +30,19 @@ import lombok.RequiredArgsConstructor;
 @Validated
 public class EmpleadoController {
 
-    private final ServicioEmpleado servicioUsuarioEmpresa;
+    private final ServicioEmpleado servicioEmpleado;
     private final ServicioUsuario servicioUsuario;
     // 🔹 Obtener todos
     @GetMapping
     public ResponseEntity<List<Empleado>> getUsuarios(){
-        return ResponseEntity.ok(servicioUsuarioEmpresa.getUsuarios());
+        return ResponseEntity.ok(servicioEmpleado.getUsuarios());
     }
 
 
     // 🔹 Obtener por ID
     @GetMapping("/id/{id}")
     public ResponseEntity<Empleado> getUsuarioById(@PathVariable int id){
-        return ResponseEntity.ok(servicioUsuarioEmpresa.getUsuarioById(id));
+        return ResponseEntity.ok(servicioEmpleado.getUsuarioById(id));
     }
 
     // 🔹 Obtener por correo (FIX ruta)
@@ -55,7 +56,7 @@ public class EmpleadoController {
     @PostMapping("/crear")
     public ResponseEntity<Map<String, Object>> crearUsuario(@RequestBody DTORegistroUsuarioEmpresaRequest request){
         try {
-            com.bd.mindexa.models.usuario.Usuario usuario = servicioUsuarioEmpresa.registrarUsuarioEmpresa(request);
+            com.bd.mindexa.models.usuario.Usuario usuario = servicioEmpleado.registrarEmpleado(request);
             Map<String, Object> response = new HashMap<>();
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
@@ -70,14 +71,30 @@ public class EmpleadoController {
 
     // 🔹 Actualizar
     @PutMapping
-    public ResponseEntity<Empleado> actualizarUsuario(@RequestBody Empleado usuario){
-        return ResponseEntity.ok(servicioUsuarioEmpresa.actualizarUsuario(usuario));
+    public ResponseEntity<Empleado> actualizarUsuario(@RequestBody Empleado empleado){
+        return ResponseEntity.ok(servicioEmpleado.actualizarEmpleado(empleado));
     }
+
+    @PutMapping("/empleado/{id}")
+public ResponseEntity<Empleado> actualizarEmpleado(
+        @PathVariable Integer id,
+        @RequestBody DTOActualizarEmpleado dto){
+
+    return ResponseEntity.ok(
+            servicioEmpleado.actualizarDatosLaborales(
+                    id,
+                    dto.cargo(),
+                    dto.turno(),
+                    dto.faena()
+            )
+    );
+}
+
 
     // 🔹 Eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarUsuario(@PathVariable int id){
-        servicioUsuarioEmpresa.eliminarUsuario(id);
-        return ResponseEntity.ok("Usuario eliminado correctamente");
+    public ResponseEntity<String> eliminarEmpleadoEntity(@PathVariable int id){
+        servicioEmpleado.eliminarEmpleado(id);
+        return ResponseEntity.ok("Empleado eliminado correctamente");
     }
 }

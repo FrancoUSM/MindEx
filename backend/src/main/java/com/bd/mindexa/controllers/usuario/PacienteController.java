@@ -1,4 +1,5 @@
 package com.bd.mindexa.controllers.usuario;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bd.mindexa.dto.panel.DTOPacientePanel;
 import com.bd.mindexa.dto.registros.DTORegistroPaciente;
 import com.bd.mindexa.models.usuario.Paciente;
 import com.bd.mindexa.orquestador.OrquestadorPaciente;
@@ -42,6 +44,12 @@ public class PacienteController {
     public ResponseEntity<Paciente> getPacienteById(@PathVariable int id) {
         return ResponseEntity.ok(servicioPaciente.getPacienteById(id));
     }
+
+
+    @GetMapping("/empresa/{id_usuario}")
+    public ResponseEntity<List<DTOPacientePanel>> getPacientesEmpresa(@PathVariable int id_usuario){
+        return ResponseEntity.ok(servicioPaciente.getPacientesEmpresa(id_usuario));
+}
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Map<String,String>> eliminarPaciente(@PathVariable int id){

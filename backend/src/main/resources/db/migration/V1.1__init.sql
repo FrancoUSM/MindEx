@@ -161,7 +161,7 @@ CREATE TABLE servicio_profesional (
 );
 
 create table sesion_usuario (
-    id_sesion_usuario SERIAL PRIMARY KEY,
+    id_sesion SERIAL PRIMARY KEY,
     id_usuario INT REFERENCES usuario(id_usuario),
     estado_sesion TEXT,
     sesion_abierta_en TIMESTAMP DEFAULT now(),

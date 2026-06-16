@@ -26,7 +26,7 @@ export default function AuthPage() {
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [rol] = useState("USER"); // valor fijo por ahora
+  const [rol, setRol] = useState(""); // valor fijo por ahora
   const [estado] = useState("ACTIVO");
   const [contrasena, setContrasena] = useState(""); // si más adelante decides usarlo
   const [turno, setTurno] = useState(""); // para el select Turno
@@ -69,7 +69,11 @@ export default function AuthPage() {
 
     if (result.rol === "PROFESIONAL") {
       navigate("/professionals");
-    } else {
+    }
+    else if (result.rol === "ADMIN"){
+      navigate("/admin")
+    }
+     else {
       navigate("/checkin");
     }
 
@@ -375,7 +379,22 @@ const registerData = {
                           className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
                           required
                         />
+
                       </div>
+                        {/*LÓGICA DE ROL */}
+                      <div className="space-y-2">
+                          <Label htmlFor="mineSite" className="text-slate-300">Rol</Label>
+                          <Select value={rol} onValueChange={setRol} required>
+                            <SelectTrigger className="bg-slate-800/50 border-slate-600 text-white">
+                              <SelectValue placeholder="Seleccionar" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-600">
+                              <SelectItem value="administrador">ADMIN</SelectItem>
+                              <SelectItem value="usuario">USER</SelectItem>
+                              
+                            </SelectContent>
+                          </Select>
+                        </div>
 
                       {/* Consent Section */}
                       <div className="space-y-4 pt-4 border-t border-slate-700">

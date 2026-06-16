@@ -102,6 +102,7 @@ private final JwtUtil jwtUtil;
             response.put("correo", usuario.getCorreo());
             response.put("rol", rol);
             response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rol));
+            
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             Map<String, Object> error = new HashMap<>();
