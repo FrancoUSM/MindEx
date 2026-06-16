@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bd.mindexa.dto.panel.DTOPacientePanel;
+import com.bd.mindexa.dto.admin.DTOPacientePanel;
 import com.bd.mindexa.models.usuario.Empleado;
 import com.bd.mindexa.models.usuario.Paciente;
 import com.bd.mindexa.models.usuario.Usuario;

@@ -63,7 +63,7 @@ export default function AuthPage() {
       id_usuario: result.id_usuario,
       nombre: result.nombre,
       correo: result.correo,
-      rol: result.rol,
+      rol: result.rol?.toUpperCase(),
     });
     if (result.token) saveToken(result.token);
 
@@ -122,14 +122,20 @@ const registerData = {
 
     const result = await response.json();
     if (result.error) throw new Error(result.error);
+      const rol = result.rol?.toUpperCase();
+
     saveSession({
       id_usuario: result.id_usuario,
       nombre: result.nombre,
       correo: result.correo,
+      rol: rol
     });
     if (result.token) saveToken(result.token);
-
-    navigate("/checkin");
+    if (rol === "ADMIN") {
+      navigate("/admin");
+    } else {
+      navigate("/checkin");
+    }
   } catch (error: any) {
     setRegisterError(error.message || "Error al crear la cuenta. Intenta de nuevo.");
   } finally {

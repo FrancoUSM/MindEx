@@ -1,4 +1,4 @@
-package com.bd.mindexa.dto.panel;
+package com.bd.mindexa.dto.admin;
 
 public record DTOPacientePanel (
     
