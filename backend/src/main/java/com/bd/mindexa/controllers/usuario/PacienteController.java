@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bd.mindexa.dto.panel.DTOPacientePanel;
+import com.bd.mindexa.dto.admin.DTOPacientePanel;
 import com.bd.mindexa.dto.registros.DTORegistroPaciente;
 import com.bd.mindexa.models.usuario.Paciente;
 import com.bd.mindexa.orquestador.OrquestadorPaciente;

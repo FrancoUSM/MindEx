@@ -98,7 +98,7 @@ export default function AdminPage() {
     loadData();
   };
 
-  const deactivate = async (idEmpleado: number) => {
+  const deactivate = async (id_empleado: number) => {
 
   const confirm = window.confirm(
     "¿Deseas desactivar este trabajador?"
@@ -107,7 +107,7 @@ export default function AdminPage() {
   if (!confirm) return;
 
   await authFetch(
-    `${import.meta.env.VITE_API_URL}/api/empleado/desactivar/${idEmpleado}`,
+    `${import.meta.env.VITE_API_URL}/api/empleado/desactivar/${id_empleado}`,
     {
       method: "PUT",
     }
