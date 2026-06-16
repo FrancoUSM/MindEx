@@ -389,8 +389,8 @@ const registerData = {
                               <SelectValue placeholder="Seleccionar" />
                             </SelectTrigger>
                             <SelectContent className="bg-slate-800 border-slate-600">
-                              <SelectItem value="administrador">ADMIN</SelectItem>
-                              <SelectItem value="usuario">USER</SelectItem>
+                              <SelectItem value="ADMIN">ADMIN</SelectItem>
+                              <SelectItem value="USER">USER</SelectItem>
                               
                             </SelectContent>
                           </Select>

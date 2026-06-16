@@ -56,7 +56,7 @@ const App = () => {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
 
-          <Route path="/admin" element={<AdminPage/> } />
+          <Route path="/admin" element={<AdminPage /> } />
 
         </Routes>
       </BrowserRouter>
