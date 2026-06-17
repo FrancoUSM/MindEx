@@ -29,8 +29,8 @@ public class Notificaciones {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_notificaciones")
-    private int id_notificaciones;
+    @Column(name = "id_notificacion")
+    private int id_notificacion;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")

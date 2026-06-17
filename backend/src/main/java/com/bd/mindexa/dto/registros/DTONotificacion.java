@@ -10,7 +10,7 @@ public class DTONotificacion {
     public String fecha;
 
     public DTONotificacion(Notificaciones n) {
-        this.id = n.getId_notificaciones();
+        this.id = n.getId_notificacion();
         this.contenido = n.getContenido_notificacion();
         this.categoria = n.getCategoria() != null ? n.getCategoria().name() : "AVISO";
         this.estado = n.getEstado_envio() != null ? n.getEstado_envio().name() : "ESPERANDO";
