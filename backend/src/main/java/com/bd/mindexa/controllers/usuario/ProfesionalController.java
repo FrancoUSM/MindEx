@@ -103,7 +103,7 @@ public ResponseEntity<Map<String,String>> crearUsuarioCompleto(
     // 🔹 Perfil propio del profesional (por id_usuario, no por id_usuario_profesional)
     @GetMapping("/mi-perfil/{id_usuario}")
     public ResponseEntity<DTOProfesionalResponse> getMiPerfil(@PathVariable int id_usuario) {
-        Profesional p = repositorioProfesional.findByUsuario_IdUsuario(id_usuario)
+        Profesional p = repositorioProfesional.findByUsuario_Id_usuario(id_usuario)
                 .orElseThrow(() -> new RuntimeException("Perfil profesional no encontrado"));
         return ResponseEntity.ok(new DTOProfesionalResponse(
                 p,

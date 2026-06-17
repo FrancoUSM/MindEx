@@ -7,5 +7,5 @@ import com.bd.mindexa.models.usuario.Profesional;
 
 public interface RepositorioProfesional extends JpaRepository<Profesional, Integer> {
 Optional<Profesional> findById(int id_profesional);
-Optional<Profesional> findByUsuario_IdUsuario(int idUsuario);
+Optional<Profesional> findByUsuario_Id_usuario(int id_usuario);
 }
