@@ -104,7 +104,6 @@ const registerData = {
   cargo: cargo,
   turno: turno,
   faena: faena,
-  contratista: "",
   
 };
   
@@ -131,7 +130,7 @@ const registerData = {
       id_usuario: result.id_usuario,
       nombre: result.nombre,
       correo: result.correo,
-      rol: rol
+      rol: result.rol
     });
     if (result.token) saveToken(result.token);
     if (rol === "ADMIN") {

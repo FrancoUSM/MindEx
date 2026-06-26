@@ -34,7 +34,11 @@ public class ServicioUsuario {
         usuario.setApellido(apellido.trim());
         usuario.setCorreo(correo.trim());
         usuario.setTelefono(telefono != null ? telefono.trim() : "");
-        usuario.setRol(Usuario.Rol.valueOf(rolUpper));
+        if (rolUpper.equals("ADMIN")){
+            usuario.setRol(Usuario.Rol.ADMIN);
+        }else if (rolUpper.equals("USER")){
+            usuario.setRol(Usuario.Rol.USER);
+        }
         usuario.setEstado(Usuario.Estado.valueOf(estado != null ? estado.toUpperCase() : "ACTIVO"));
         usuario.setCreado_en(LocalDateTime.now());
         usuario.setActualizado_en(LocalDateTime.now());
