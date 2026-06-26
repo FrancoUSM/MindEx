@@ -57,7 +57,7 @@ public class ServicioUsuario {
         return usuarioGuardado;
     }
 
-    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String contrasena) {
+    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String contrasena, String rol) {
         if (repositorioUsuario.findByCorreo(correo.trim()).isPresent()) {
             throw new RuntimeException("Ya existe una cuenta con ese correo electrónico");
         }
@@ -66,7 +66,7 @@ public class ServicioUsuario {
         usuario.setApellido(apellido != null ? apellido.trim() : "");
         usuario.setCorreo(correo.trim());
         usuario.setTelefono(telefono != null ? telefono.trim() : "");
-        usuario.setRol(Usuario.Rol.USER);
+        usuario.setRol(Usuario.Rol.valueOf(rol.toUpperCase()));
         usuario.setEstado(Usuario.Estado.ACTIVO);
         usuario.setCreado_en(LocalDateTime.now());
         usuario.setActualizado_en(LocalDateTime.now());
