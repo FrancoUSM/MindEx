@@ -24,16 +24,20 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-interface PacienteEmpresa {
-  id_paciente: number;
-  id_empleado: number;
+interface UsuarioSlim {
   nombre: string;
-  apellido: string;
   correo: string;
+}
+
+interface PacienteEmpresa {
+  id_paciente?: number;
+  id_empleado: number;
   cargo: string;
   turno: string;
   faena: string;
+  usuario?: UsuarioSlim;
 }
+
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -118,11 +122,12 @@ export default function AdminPage() {
 
 
 
-  const filtered = data.filter(p =>
-    `${p.nombre} ${p.apellido} ${p.correo}`
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const filtered = data.filter(p => {
+    const nombre = p.usuario?.nombre ?? "";
+    const correo = p.usuario?.correo ?? "";
+    return `${nombre} ${correo}`.toLowerCase().includes(search.toLowerCase());
+  });
+
 
   if (!session) {
     return (
@@ -235,8 +240,9 @@ export default function AdminPage() {
               <tbody>
                 {filtered.map(p => (
                   <tr key={p.id_empleado} className="border-b">
-                    <td>{p.nombre} {p.apellido}</td>
-                    <td>{p.correo}</td>
+                    <td>{p.usuario?.nombre ?? ""}</td>
+                    <td>{p.usuario?.correo ?? ""}</td>
+
                     <td>{p.cargo}</td>
                     <td>
                       <Badge>{p.turno}</Badge>

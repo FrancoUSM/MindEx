@@ -64,7 +64,8 @@ export default function AuthPage() {
       id_usuario: result.id_usuario,
       nombre: result.nombre,
       correo: result.correo,
-      rol: result.rol?.toUpperCase(),
+      rol: result.rol?.toUpperCase().trim(),
+
     });
     if (result.token) saveToken(result.token);
 
