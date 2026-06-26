@@ -39,7 +39,7 @@ private final JwtUtil jwtUtil;
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
             response.put("correo", usuario.getCorreo());
-            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), "USER"));
+            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), usuario.getRol().name()));
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             Map<String, Object> error = new HashMap<>();
@@ -97,13 +97,12 @@ private final JwtUtil jwtUtil;
         try {
             Usuario usuario = servicioAutenticacion.login(loginRequest.getCorreo(), loginRequest.getContrasena());
             Map<String, Object> response = new HashMap<>();
-            Rol rol = usuario.getRol();
-            String rolString = rol.name();
+            String rol = usuario.getRol().name();
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
             response.put("correo", usuario.getCorreo());
-            response.put("rol", rolString);
-            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rolString));
+            response.put("rol", rol);
+            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rol));
             
             if (usuario.getEstado() == Usuario.Estado.INACTIVO) {
                 response.put("message", "Usuario inactivo. Contacte al administrador.");
