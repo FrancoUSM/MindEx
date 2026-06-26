@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.bd.mindexa.dto.login.LoginUsuarioEmpresa;
 import com.bd.mindexa.dto.registros.DTORegistroPublicoRequest;
 import com.bd.mindexa.models.usuario.Usuario;
+import com.bd.mindexa.models.usuario.Usuario.Rol;
 import com.bd.mindexa.security.JwtUtil;
 import com.bd.mindexa.services.autenticacion.ServicioAutenticacion;
 import com.bd.mindexa.services.sesion_usuario.ServicioSesionUsuario;
@@ -96,13 +97,19 @@ private final JwtUtil jwtUtil;
         try {
             Usuario usuario = servicioAutenticacion.login(loginRequest.getCorreo(), loginRequest.getContrasena());
             Map<String, Object> response = new HashMap<>();
-            String rol = usuario.getRol() != null ? usuario.getRol().name() : "USER";
+            Rol rol = usuario.getRol();
+            String rolString = rol.name();
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
             response.put("correo", usuario.getCorreo());
-            response.put("rol", rol);
-            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rol));
+            response.put("rol", rolString);
+            response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rolString));
             
+            if (usuario.getEstado() == Usuario.Estado.INACTIVO) {
+                response.put("message", "Usuario inactivo. Contacte al administrador.");
+                return ResponseEntity.status(403).body(response);
+            }
+
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             Map<String, Object> error = new HashMap<>();

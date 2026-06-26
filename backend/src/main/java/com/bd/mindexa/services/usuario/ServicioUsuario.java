@@ -112,6 +112,7 @@ public class ServicioUsuario {
 
 public void desactivarUsuario(Usuario usuario){
     usuario.setDesactivado_en(LocalDateTime.now());
+    usuario.setEstado(Estado.INACTIVO);
     repositorioUsuario.save(usuario);
 }
 

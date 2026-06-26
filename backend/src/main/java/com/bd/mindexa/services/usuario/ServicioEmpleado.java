@@ -87,7 +87,14 @@ public class ServicioEmpleado {
     return repositorioEmpleado.save(empleado);
 }
 
+@Transactional
+public void desactivarEmpleado(int idEmpleado) {
 
+    Empleado empleado = repositorioEmpleado.findById(idEmpleado)
+        .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+    servicioUsuario.desactivarUsuario(empleado.getUsuario());
+}
 
     public void eliminarEmpleado(int id) {
         if (repositorioEmpleado.existsById(id)) {

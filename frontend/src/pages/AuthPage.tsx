@@ -63,13 +63,14 @@ export default function AuthPage() {
 
     saveSession({
       id_usuario: result.id_usuario,
-      nombre: result.nombre,
-      correo: result.correo,
+      nombre: result.nombre.trim(),
+      correo: result.correo.trim(),
       rol: result.rol?.toUpperCase().trim(),
 
     });
     if (result.token) saveToken(result.token);
-
+    console.log(result);
+    console.log("Rol:", result.rol);
     const rol = result.rol?.toUpperCase();
 
     if (rol === "PROFESIONAL") {
@@ -128,7 +129,7 @@ const registerData = {
 
     saveSession({
       id_usuario: result.id_usuario,
-      nombre: result.nombre,
+      nombre: result.nombre.trim(),
       correo: result.correo,
       rol: result.rol
     });

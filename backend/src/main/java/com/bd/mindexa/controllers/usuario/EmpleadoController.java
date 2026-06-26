@@ -61,6 +61,7 @@ public class EmpleadoController {
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
             response.put("correo", usuario.getCorreo());
+            response.put("rol", usuario.getRol());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             Map<String, Object> error = new HashMap<>();
@@ -89,6 +90,14 @@ public ResponseEntity<Empleado> actualizarEmpleado(
             )
     );
 }
+
+
+    @PutMapping("/desactivar/{id}")
+    public ResponseEntity<?> desactivarEmpleado(@PathVariable int id){
+        servicioEmpleado.desactivarEmpleado(id);
+        return ResponseEntity.ok(Map.of("message", "Empleado desactivado correctamente"));
+    }
+
 
 
     // 🔹 Eliminar
