@@ -28,6 +28,7 @@ export default function AuthPage() {
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [rol, setRol] = useState(""); // valor fijo por ahora
+  const [cargo, setCargo] = useState(""); // si más adelante decides usarlo 
   const [estado] = useState("ACTIVO");
   const [contrasena, setContrasena] = useState(""); // si más adelante decides usarlo
   const [turno, setTurno] = useState(""); // para el select Turno
@@ -100,7 +101,7 @@ const registerData = {
   estado: estado,
   contrasena: contrasena,
   razonSocial: razonSocial,
-  cargo: "Empleado",
+  cargo: cargo,
   turno: turno,
   faena: faena,
   contratista: "",
@@ -259,6 +260,8 @@ const registerData = {
                           required
                         />
                       </div>
+
+                      
                       {loginError && (
                         <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-400">
                           <AlertCircle className="h-4 w-4 shrink-0" />
@@ -341,6 +344,19 @@ const registerData = {
                           value={contrasena}
                           onChange={(e) => setContrasena(e.target.value)}
                           placeholder="••••••••"
+                          className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="password" className="text-slate-300">Cargo</Label>
+                        <Input
+                          id="cargo"
+                          type="text"
+                          value={cargo}
+                          onChange={(e) => setCargo(e.target.value)}
+                          placeholder="Ej: Supervisor"
                           className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500"
                           required
                         />

@@ -28,12 +28,13 @@ public class ServicioUsuario {
     private final RepositorioAutenticacion repositorioAutenticacion;
 
     public Usuario crearUsuario(String nombre, String apellido, String correo, String telefono, String rol, String estado, String contrasena){
+        String rolUpper = rol.toUpperCase();
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre.trim());
         usuario.setApellido(apellido.trim());
         usuario.setCorreo(correo.trim());
         usuario.setTelefono(telefono != null ? telefono.trim() : "");
-        usuario.setRol(Usuario.Rol.USER);
+        usuario.setRol(Usuario.Rol.valueOf(rolUpper));
         usuario.setEstado(Usuario.Estado.valueOf(estado != null ? estado.toUpperCase() : "ACTIVO"));
         usuario.setCreado_en(LocalDateTime.now());
         usuario.setActualizado_en(LocalDateTime.now());
