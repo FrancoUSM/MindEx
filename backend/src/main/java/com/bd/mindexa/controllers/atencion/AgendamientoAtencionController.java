@@ -1,7 +1,6 @@
 package com.bd.mindexa.controllers.atencion;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

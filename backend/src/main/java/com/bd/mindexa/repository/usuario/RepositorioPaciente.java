@@ -37,6 +37,7 @@ SELECT new com.bd.mindexa.dto.admin.DTOPacienteEmpresa(
     u.nombre,
     u.apellido,
     u.correo,
+    u.rol,
     e.cargo,
     e.turno,
     e.faena

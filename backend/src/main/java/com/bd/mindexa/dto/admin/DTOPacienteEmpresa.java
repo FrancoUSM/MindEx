@@ -6,6 +6,7 @@ public record DTOPacienteEmpresa(
         String nombre,
         String apellido,
         String correo,
+        String rol,
         String cargo,
         String turno,
         String faena) {
