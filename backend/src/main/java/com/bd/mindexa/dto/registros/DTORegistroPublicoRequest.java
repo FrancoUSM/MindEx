@@ -6,6 +6,7 @@ public class DTORegistroPublicoRequest {
     public String correo;
     public String contrasena;
     public String telefono;
+    public String estado;
     public String rol;
     public String cargo;
     public String sector;

@@ -27,37 +27,9 @@ public class ServicioUsuario {
     private final RepositorioUsuario repositorioUsuario;
     private final RepositorioAutenticacion repositorioAutenticacion;
 
-    public Usuario crearUsuario(String nombre, String apellido, String correo, String telefono, String rol, String estado, String contrasena){
-        String rolUpper = rol.toUpperCase();
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre.trim());
-        usuario.setApellido(apellido.trim());
-        usuario.setCorreo(correo.trim());
-        usuario.setTelefono(telefono != null ? telefono.trim() : "");
-        if (rolUpper.equals("ADMIN")){
-            usuario.setRol(Usuario.Rol.ADMIN);
-        }else if (rolUpper.equals("USER")){
-            usuario.setRol(Usuario.Rol.USER);
-        }
-        usuario.setEstado(Usuario.Estado.valueOf(estado != null ? estado.toUpperCase() : "ACTIVO"));
-        usuario.setCreado_en(LocalDateTime.now());
-        usuario.setActualizado_en(LocalDateTime.now());
+    
 
-        Usuario usuarioGuardado = repositorioUsuario.save(usuario);
-        Argon2 argon2 = Argon2Factory.create();
-        String hash = argon2.hash(2, 65536, 1, contrasena);
-        Autenticacion autenticacion = new Autenticacion();
-        autenticacion.setUsuario(usuarioGuardado);
-        autenticacion.setContrasena_hash(hash);
-        autenticacion.setEstado(com.bd.mindexa.models.autenticacion.Autenticacion.Estado.ACTIVO);
-        autenticacion.setCreado_en(LocalDateTime.now());
-        autenticacion.setActualizado_en(LocalDateTime.now());
-        repositorioAutenticacion.save(autenticacion);
-
-        return usuarioGuardado;
-    }
-
-    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String contrasena, String rol) {
+    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String rol, String estado, String contrasena) {
         if (repositorioUsuario.findByCorreo(correo.trim()).isPresent()) {
             throw new RuntimeException("Ya existe una cuenta con ese correo electrónico");
         }

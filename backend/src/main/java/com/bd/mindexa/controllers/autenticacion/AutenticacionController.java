@@ -33,7 +33,7 @@ private final JwtUtil jwtUtil;
     public ResponseEntity<Map<String, Object>> registroPublico(@RequestBody DTORegistroPublicoRequest request) {
         try {
             Usuario usuario = servicioUsuario.registrarUsuarioPublico(
-                request.nombre, request.apellido, request.correo, request.telefono, request.contrasena, request.rol);
+                request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.estado, request.contrasena);
             Map<String, Object> response = new HashMap<>();
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
@@ -103,6 +103,8 @@ private final JwtUtil jwtUtil;
             response.put("correo", usuario.getCorreo());
             response.put("rol", rol);
             response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), rol));
+
+            System.out.println("ROL DB: " + usuario.getRol());
             
             if (usuario.getEstado() == Usuario.Estado.INACTIVO) {
                 response.put("message", "Usuario inactivo. Contacte al administrador.");

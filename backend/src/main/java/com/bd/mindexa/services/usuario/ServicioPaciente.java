@@ -43,7 +43,7 @@ public class ServicioPaciente {
         repositorioPaciente.save(paciente);
     }
 
-    public void eliminarPaciente(@NonNull Paciente paciente){
+    public void eliminarPaciente(Paciente paciente){
         repositorioPaciente.delete(paciente);
     }
 
