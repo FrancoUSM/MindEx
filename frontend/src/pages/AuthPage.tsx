@@ -77,8 +77,11 @@ export default function AuthPage() {
       navigate("/professionals");
     } else if (rol === "ADMIN") {
       navigate("/admin");
-    } else {
+    } else if(rol === "USER") {
       navigate("/checkin");
+    } else if (rol === ""){
+      console.log("Rol no definido, redirigiendo a la página de inicio");
+      navigate("/");
     }
 
   } catch (error: any) {
