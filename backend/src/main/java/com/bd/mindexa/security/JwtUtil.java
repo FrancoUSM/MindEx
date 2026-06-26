@@ -7,8 +7,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.bd.mindexa.models.usuario.Usuario.Rol;
-
 import javax.crypto.SecretKey;
 import java.util.Date;
 
@@ -25,7 +23,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(int idUsuario, Rol rol) {
+    public String generateToken(int idUsuario, String rol) {
         return Jwts.builder()
                 .subject(String.valueOf(idUsuario))
                 .claim("rol", rol)

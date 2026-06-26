@@ -39,7 +39,7 @@ private final JwtUtil jwtUtil;
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
             response.put("correo", usuario.getCorreo());
-            response.put("rol", usuario.getRol());
+            response.put("rol", usuario.getRol().name());
             response.put("token", jwtUtil.generateToken(usuario.getIdUsuario(), usuario.getRol().name()));
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
