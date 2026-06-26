@@ -1,4 +1,5 @@
 import React,{ useState, Suspense } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { saveSession, saveToken } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -67,13 +68,13 @@ export default function AuthPage() {
     });
     if (result.token) saveToken(result.token);
 
-    if (result.rol === "PROFESIONAL") {
+    const rol = result.rol?.toUpperCase();
+
+    if (rol === "PROFESIONAL") {
       navigate("/professionals");
-    }
-    else if (result.rol === "ADMIN"){
-      navigate("/admin")
-    }
-     else {
+    } else if (rol === "ADMIN") {
+      navigate("/admin");
+    } else {
       navigate("/checkin");
     }
 

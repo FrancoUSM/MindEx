@@ -57,7 +57,7 @@ export default function AdminPage() {
     setLoading(true);
 
     authFetch(
-      `${import.meta.env.VITE_API_URL}/api/paciente/empresa/${session.id_usuario}`
+      `${import.meta.env.VITE_API_URL}/api/empleado`
     )
       .then(r => {
         if (!r.ok) throw new Error("Error cargando datos");
@@ -83,7 +83,7 @@ export default function AdminPage() {
     if (!selected) return;
 
     await authFetch(
-      `${import.meta.env.VITE_API_URL}/api/empleado/${selected.id_empleado}`,
+      `${import.meta.env.VITE_API_URL}/api/empleado/empleado/${selected.id_empleado}`,
       {
         method: "PUT",
         body: JSON.stringify({
