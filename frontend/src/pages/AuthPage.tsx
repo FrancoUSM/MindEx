@@ -69,20 +69,21 @@ export default function AuthPage() {
 
     });
     if (result.token) saveToken(result.token);
-    console.log(result);
-    console.log("Rol:", result.rol);
-    const rol = result.rol?.toUpperCase();
+    console.log("Respuesta login:", result);
+    console.log("Rol recibido:", result.rol);
 
-    if (rol === "PROFESIONAL") {
-      navigate("/professionals");
-    } else if (rol === "ADMIN") {
+    const rol = result.rol?.toUpperCase().trim();
+
+    if (rol === "ADMIN") {
       navigate("/admin");
-    } else if(rol === "USER") {
+    } else if (rol === "PROFESIONAL") {
+      navigate("/professionals");
+    } else if (rol === "USER") {
       navigate("/checkin");
-    } else if (rol === ""){
-      console.log("Rol no definido, redirigiendo a la página de inicio");
+    } else {
+      console.log("Rol no definido o no reconocido:", rol);
       navigate("/");
-    }
+}
 
   } catch (error: any) {
     setLoginError(error.message || "Error al iniciar sesión. Intenta de nuevo.");
@@ -126,22 +127,29 @@ const registerData = {
       throw new Error(`Error HTTP: ${response.status}`);
     }
 
-    const result = await response.json();
-    if (result.error) throw new Error(result.error);
-      const rol = result.rol?.toUpperCase();
+const result = await response.json();
+console.log("Respuesta registro:", result);
+console.log("Rol seleccionado en formulario:", rol);
+if (result.error) throw new Error(result.error);
 
-    saveSession({
-      id_usuario: result.id_usuario,
-      nombre: result.nombre.trim(),
-      correo: result.correo,
-      rol: result.rol
-    });
-    if (result.token) saveToken(result.token);
-    if (rol === "ADMIN") {
-      navigate("/admin");
-    } else {
-      navigate("/checkin");
-    }
+const rolFinal = rol.toUpperCase().trim();
+
+saveSession({
+  id_usuario: result.id_usuario,
+  nombre: result.nombre?.trim(),
+  correo: result.correo,
+  rol: rolFinal
+});
+
+if (result.token) saveToken(result.token);
+
+if (rolFinal === "ADMIN") {
+  navigate("/admin");
+} else if (rolFinal === "USER") {
+  navigate("/checkin");
+} else {
+  navigate("/");
+}
   } catch (error: any) {
     setRegisterError(error.message || "Error al crear la cuenta. Intenta de nuevo.");
   } finally {
