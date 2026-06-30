@@ -13,7 +13,7 @@ public interface RepositorioPaciente extends JpaRepository<Paciente,Integer>{
 Optional<Paciente> findById(int id_paciente);
 Optional<Paciente> findByUsuario(com.bd.mindexa.models.usuario.Usuario usuario);
 @Query("""
-SELECT new com.bd.mindexa.dto.panel.DTOPacientePanel(
+SELECT new com.bd.mindexa.dto.admin.DTOPacientePanel(
     p.id_paciente,
     u.nombre,
     u.apellido,
