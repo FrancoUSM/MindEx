@@ -28,7 +28,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    public enum Rol {ADMIN,DEV,USER,PROFESIONAL,EMPLEADO,PACIENTE}
+    public enum Rol {ADMIN,USER,PROFESIONAL}
 
     @Enumerated(EnumType.STRING)
     private Estado estado;

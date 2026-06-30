@@ -16,6 +16,7 @@ import {
 
 import { getSession } from "@/lib/auth";
 import { authFetch } from "@/lib/api";
+import {AppSidebar} from "@/components/layout/AppSidebar";
 
 import {
   Dialog,
@@ -40,6 +41,14 @@ interface PacienteEmpresa {
 
 
 export default function AdminPage() {
+  const sidebarItems = [
+    {
+      title: "Panel de Empresa",
+      url: "/admin",
+      icon: Building2,
+      roles: ["admin"]
+    },
+  ];
   const navigate = useNavigate();
   const session = getSession();
 
