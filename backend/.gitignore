@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+# Java crash / diagnostic files
+hs_err_pid*.log
+replay_pid*.log
+report.*.json
