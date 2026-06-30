@@ -60,12 +60,12 @@ export default function AppointmentCalendar({ onClose }: { onClose: () => void }
 
   useEffect(() => {
     fetchProfesionales().then(list =>
-      setProfessionals(list.map(p => ({
-        id: p.backendId ?? 0,
-        name: p.name,
-        speciality: p.title,
-      })))
-    );
+    setProfessionals(list.map((p, index) => ({
+      id: p.backendId && p.backendId > 0 ? p.backendId : index + 1,
+      name: p.name,
+      speciality: p.title,
+    })))
+  );
 
     const session = getSession();
     if (!session) return;
@@ -262,10 +262,7 @@ export default function AppointmentCalendar({ onClose }: { onClose: () => void }
                       <SelectContent>
                         {professionals.map(p => (
                           <SelectItem key={p.id} value={String(p.id)}>
-                            <div className="flex items-center gap-2">
-                              <User className="h-4 w-4" />
-                              {p.name} — {p.speciality}
-                            </div>
+                            {p.name} — {p.speciality}
                           </SelectItem>
                         ))}
                       </SelectContent>

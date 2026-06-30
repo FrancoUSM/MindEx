@@ -1,8 +1,7 @@
 package com.bd.mindexa.services.atencion;
-
+import java.util.List;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import com.bd.mindexa.models.atencion.AgendamientoAtencion;
 import com.bd.mindexa.models.usuario.Paciente;
 import com.bd.mindexa.models.usuario.Profesional;
 import com.bd.mindexa.models.usuario.Usuario;
-import com.bd.mindexa.models.usuario.profesional.ServicioProfesional;
 import com.bd.mindexa.repository.atencion.RepositorioAgendamientoAtencion;
 import com.bd.mindexa.repository.usuario.RepositorioPaciente;
 import com.bd.mindexa.repository.usuario.RepositorioProfesional;
@@ -43,14 +41,13 @@ public class ServicioAgendamiento {
                 .orElseGet(() -> servicioPaciente.crearPaciente(req.id_usuario));
 
         Profesional profesional = repositorioProfesional.findById(req.id_profesional)
-                .orElseThrow(() -> new RuntimeException("Profesional no encontrado"));
+        .orElse(null);
 
-        List<ServicioProfesional> servicios = repositorioServicioProfesional.findByProfesional(profesional);
-        ServicioProfesional servicio = servicios.isEmpty() ? null : servicios.get(0);
+        
 
         AgendamientoAtencion cita = new AgendamientoAtencion();
         cita.setPaciente(paciente);
-        cita.setFecha_atencion(LocalDateTime.parse(req.fecha));
+        cita.setFecha_atencion(LocalDateTime.parse(req.fecha + "T" + req.hora));
         cita.setRazon_atencion(req.motivo);
         cita.setModalidad(req.hora != null ? req.hora : "");
         cita.setEstado(AgendamientoAtencion.EstadoAgendamiento.ACTIVO);

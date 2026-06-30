@@ -1,5 +1,5 @@
 package com.bd.mindexa.dto.administrador;
 
-public record DTOEmpresas() {
+public record DTOMantenerEmpresas() {
 
 }

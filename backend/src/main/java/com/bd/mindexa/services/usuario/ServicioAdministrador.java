@@ -35,7 +35,7 @@ public Administrador getAdministradorById(int id) {
 }
 
 public Administrador getAdministradorByUsuarioId(int idUsuario) {
-    return repositorioAdministrador.findByUsuario(idUsuario)
+    return repositorioAdministrador.findByUsuario_IdUsuario(idUsuario)
             .orElseThrow(() -> new RuntimeException("Administrador no encontrado para el usuario con ID: " + idUsuario));
 
 }
@@ -49,7 +49,7 @@ public void crearAdministrador(String nombre, String apellido, String correo, St
     usuario.setCorreo(correo);
     usuario.setTelefono(telefono);
     usuario.setCreado_en(LocalDateTime.now());
-    usuario.setRol(Rol.ADMINISTRADOR);
+    usuario.setRol(Rol.ADMIN);
     usuario.setEstado(Usuario.Estado.ACTIVO);
     repositorioUsuario.save(usuario);
     Administrador administrador = new Administrador();

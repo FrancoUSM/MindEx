@@ -13,17 +13,30 @@ public class DTOAgendamientoResponse {
     public String profesional_apellido;
 
     public DTOAgendamientoResponse(AgendamientoAtencion a) {
-        this.id = a.getId_agendamiento_atencion();
-        this.fecha = a.getFecha_atencion() != null ? a.getFecha_atencion().toString() : null;
-        this.hora = (a.getDisponibilidadAtencion() != null && a.getDisponibilidadAtencion().getHora_inicio() != null)
-                ? a.getDisponibilidadAtencion().getHora_inicio().toLocalTime().toString()
-                : (a.getModalidad() != null ? a.getModalidad() : "");
-        this.motivo = a.getRazon_atencion();
-        this.tipo = a.getModalidad() != null ? a.getModalidad() : "";
-        this.estado = a.getEstado() != null ? a.getEstado().name() : "ACTIVO";
-        if (a.getDisponibilidadAtencion().getProfesional() != null && a.getDisponibilidadAtencion().getProfesional().getUsuario() != null) {
-            this.profesional_nombre = a.getDisponibilidadAtencion().getProfesional().getUsuario().getNombre();
-            this.profesional_apellido = a.getDisponibilidadAtencion().getProfesional().getUsuario().getApellido();
-        }
+    this.id = a.getId_agendamiento_atencion();
+
+    this.fecha = a.getFecha_atencion() != null
+            ? a.getFecha_atencion().toLocalDate().toString()
+            : null;
+
+    this.hora = a.getFecha_atencion() != null
+            ? a.getFecha_atencion().toLocalTime().toString()
+            : "";
+
+    this.motivo = a.getRazon_atencion();
+    this.tipo = a.getModalidad() != null ? a.getModalidad() : "";
+    this.estado = a.getEstado() != null ? a.getEstado().name() : "ACTIVO";
+
+    if (a.getDisponibilidadAtencion() != null
+            && a.getDisponibilidadAtencion().getProfesional() != null
+            && a.getDisponibilidadAtencion().getProfesional().getUsuario() != null) {
+
+        this.profesional_nombre = a.getDisponibilidadAtencion().getProfesional().getUsuario().getNombre();
+        this.profesional_apellido = a.getDisponibilidadAtencion().getProfesional().getUsuario().getApellido();
+
+    } else {
+        this.profesional_nombre = "Profesional";
+        this.profesional_apellido = "por confirmar";
     }
+}       
 }
