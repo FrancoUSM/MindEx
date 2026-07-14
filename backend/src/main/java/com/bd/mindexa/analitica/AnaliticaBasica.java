@@ -1,7 +1,19 @@
-package com.bd.mindexa.kpi;
+package com.bd.mindexa.analitica;
 
-public class KPI {
+import java.util.List;
 
+public class AnaliticaBasica {
+
+    private String kpi_name;
+    private List<AnaliticaBasica> kpi_list;
+
+    public void extractKPI(){
+
+    }
+
+    public void calculateKPI(){
+
+    }
 
 
 }
