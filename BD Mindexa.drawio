@@ -1,10 +1,6 @@
 <mxfile host="65bd71144e" pages="2">
     <diagram name="Modelo BD" id="FzV-Hxkno2bLyqNjJTOP">
-<<<<<<< HEAD
-        <mxGraphModel dx="1453" dy="1530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-=======
-        <mxGraphModel dx="1231" dy="1504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
->>>>>>> 8c4f706327a0f3717014c3a23b5bdb8f7f4182c1
+        <mxGraphModel dx="1463" dy="1662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1195,30 +1191,6 @@
                 </mxCell>
                 <mxCell id="Rv9ayEl-UlKZe0W--IuV-30" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;opciones_respuesta&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;PK id&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;FK id_pregunta_test&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;respuesta_1&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;respuesta_2&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;respuesta_3&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;respuesta_4&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
                     <mxGeometry x="1830" y="1210" width="127.5" height="130" as="geometry"/>
-                </mxCell>
-                <mxCell id="20" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;administrador&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;PK id&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;FK id_usuario&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;creado_en&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;desactivado_en&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#bac8d3;strokeColor=#23445d;" vertex="1" parent="1">
-                    <mxGeometry x="-150" y="170" width="160" height="120" as="geometry"/>
-                </mxCell>
-                <mxCell id="22" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontColor=#000000;" edge="1" parent="1" source="20" target="KnP1cdyUj_oMr1m6cvcZ-1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="50" y="230"/>
-                            <mxPoint x="50" y="290"/>
-                            <mxPoint x="300" y="289"/>
-                        </Array>
-                        <mxPoint x="80" y="240.13" as="sourcePoint"/>
-                        <mxPoint x="245" y="361.13" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="23" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" connectable="0" vertex="1" parent="22">
-                    <mxGeometry x="0.9503" y="-1" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="24" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" connectable="0" vertex="1" parent="22">
-                    <mxGeometry x="-0.9498" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

@@ -49,6 +49,6 @@ tasks.named('test') {
 flyway {
 	url = System.getenv('DB_URL') ?: 'jdbc:postgresql://localhost:5432/mindexa'
 	user = System.getenv('DB_USER') ?: 'postgres'
-	password = System.getenv('DB_PASSWORD') ?: 'Somosfanez731'
+	password = System.getenv('DB_PASSWORD') ?: 'postgres'
 	schemas = ['public']
 }
