@@ -149,6 +149,8 @@ if (rolFinal === "ADMIN") {
   navigate("/admin");
 } else if (rolFinal === "USER") {
   navigate("/checkin");
+}  else if (rolFinal === "ADMINISTRATIVO") {
+  navigate("/administrativo");
 } else {
   navigate("/");
 }
