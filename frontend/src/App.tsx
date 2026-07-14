@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import B2BOnboardingPage from "./pages/B2BOnboardingPage";
 import { useEffect } from "react";
 import AdministradorPage from "./pages/AdministradorPage";
+import AdminPage from "./pages/AdminPage";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,8 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
 
           <Route path="/admin" element={<AdministradorPage />} />
+
+          <Route path="/administrativo" element={<AdminPage />} />
 
         </Routes>
       </BrowserRouter>

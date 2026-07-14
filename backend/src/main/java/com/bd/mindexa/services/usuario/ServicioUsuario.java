@@ -29,7 +29,7 @@ public class ServicioUsuario {
 
     
 
-    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String rol, String estado, String contrasena) {
+    public Usuario registrarUsuarioPublico(String nombre, String apellido, String correo, String telefono, String rol, String contrasena) {
         if (repositorioUsuario.findByCorreo(correo.trim()).isPresent()) {
             throw new RuntimeException("Ya existe una cuenta con ese correo electrónico");
         }

@@ -24,7 +24,7 @@ private final ServicioUsuario servicioUsuario;
     @Transactional
     public Profesional registrarProfesional(DTORegistroUsuarioProfesionalRequest request) {
         //CREAR USUARIO
-        Usuario usuario = servicioUsuario.registrarUsuarioPublico(request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.estado, request.contrasena);
+        Usuario usuario = servicioUsuario.registrarUsuarioPublico(request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.contrasena);
 
 
         //RELACIÓN CON USUARIOPROFESIONAL

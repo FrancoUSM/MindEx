@@ -76,6 +76,8 @@ export default function AuthPage() {
 
     if (rol === "ADMIN") {
       navigate("/admin");
+    } else if(rol ==="ADMINISTRATIVO"){
+      navigate("/administrativo");
     } else if (rol === "PROFESIONAL") {
       navigate("/professionals");
     } else if (rol === "USER") {
@@ -83,7 +85,7 @@ export default function AuthPage() {
     } else {
       console.log("Rol no definido o no reconocido:", rol);
       navigate("/");
-}
+    }
 
   } catch (error: any) {
     setLoginError(error.message || "Error al iniciar sesión. Intenta de nuevo.");
@@ -425,6 +427,7 @@ if (rolFinal === "ADMIN") {
                             </SelectTrigger>
                             <SelectContent className="bg-slate-800 border-slate-600">
                               <SelectItem value="ADMIN">ADMIN</SelectItem>
+                              <SelectItem value="ADMINISTRATIVO">ADMINISTRATIVO</SelectItem>
                               <SelectItem value="USER">USER</SelectItem>
                               
                             </SelectContent>

@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_DB: mindexa
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Somosfanez731
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5433:5432"
 

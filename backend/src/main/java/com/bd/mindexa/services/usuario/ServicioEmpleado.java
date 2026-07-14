@@ -41,7 +41,7 @@ public class ServicioEmpleado {
 
     //🔹 1. Crear Usuario
     log.info("Rol recibido desde frontend: {}", request.rol);
-    Usuario usuario = servicioUsuario.registrarUsuarioPublico(request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.estado, request.contrasena);
+    Usuario usuario = servicioUsuario.registrarUsuarioPublico(request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.contrasena);
 
     // 🔹 2. Obtener Empresa
     Empresa empresa = repositorioEmpresa.findByRazonSocialIgnoreCase(request.razonSocial)

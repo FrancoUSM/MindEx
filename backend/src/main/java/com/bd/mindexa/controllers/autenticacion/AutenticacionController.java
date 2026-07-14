@@ -33,7 +33,7 @@ private final JwtUtil jwtUtil;
     public ResponseEntity<Map<String, Object>> registroPublico(@RequestBody DTORegistroPublicoRequest request) {
         try {
             Usuario usuario = servicioUsuario.registrarUsuarioPublico(
-                request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.estado, request.contrasena);
+                request.nombre, request.apellido, request.correo, request.telefono, request.rol, request.contrasena);
             Map<String, Object> response = new HashMap<>();
             response.put("id_usuario", usuario.getIdUsuario());
             response.put("nombre", usuario.getNombre());
