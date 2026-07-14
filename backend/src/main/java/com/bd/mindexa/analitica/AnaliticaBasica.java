@@ -7,12 +7,9 @@ public class AnaliticaBasica {
     private String kpi_name;
     private List<AnaliticaBasica> kpi_list;
 
-    public void extractKPI(){
-
-    }
-
-    public void calculateKPI(){
-
+   
+    public int calcularGanancia(){
+        return 0;
     }
 
 
