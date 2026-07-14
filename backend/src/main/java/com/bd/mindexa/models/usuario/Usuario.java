@@ -28,7 +28,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    public enum Rol {ADMIN,USER,PROFESIONAL}
+    public enum Rol {ADMIN, GERENTE, USER, PROFESIONAL}
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -40,8 +40,7 @@ public class Usuario {
     private LocalDateTime actualizado_en;
     private LocalDateTime desactivado_en;
 
-    public Usuario() {
-    }
+  
 
 
 

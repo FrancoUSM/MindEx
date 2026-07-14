@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="2">
     <diagram name="Modelo BD" id="FzV-Hxkno2bLyqNjJTOP">
-        <mxGraphModel dx="1352" dy="1662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1453" dy="1530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -60,7 +60,7 @@
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="-45" y="570"/>
-                            <mxPoint x="-45" y="490"/>
+                            <mxPoint x="-45" y="494"/>
                         </Array>
                         <mxPoint x="130" y="500" as="sourcePoint"/>
                         <mxPoint x="180" y="470" as="targetPoint"/>
@@ -697,7 +697,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="Ipgtu8auJ7uFo2qwXCBK-1" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;calificacion_profesional&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;PK id&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;FK id_sesion_clinica&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;PK id_sesion_urgencia&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;FK id_paciente&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;puntaje&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;observacion&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;creado_en&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
-                    <mxGeometry x="745" y="670" width="160" height="130" as="geometry"/>
+                    <mxGeometry x="745" y="680" width="160" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="Ipgtu8auJ7uFo2qwXCBK-5" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;notificaciones&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;PK id&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;FK id_usuario&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;FK id_alertas_riesgo&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;contenido_notificacion&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;categoria&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;fecha_notificacion&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;estado_envio&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;enviado_en&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
                     <mxGeometry x="470" y="167.81" width="160" height="169.38" as="geometry"/>
@@ -884,7 +884,7 @@
                 </mxCell>
                 <mxCell id="Ipgtu8auJ7uFo2qwXCBK-53" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="Ipgtu8auJ7uFo2qwXCBK-47" connectable="0" vertex="1">
                     <mxGeometry x="-0.6068" y="1" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint x="1" y="8" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="Ipgtu8auJ7uFo2qwXCBK-48" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontColor=#000000;" parent="1" source="lmNsF5cm27Dthe2VZNdC-50" target="Ipgtu8auJ7uFo2qwXCBK-41" edge="1">
