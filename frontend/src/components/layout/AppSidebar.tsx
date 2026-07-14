@@ -243,6 +243,18 @@ export function AppSidebar() {
             </div>
           )}
         </div>
+        
+        <div className="mt-auto p-3 border-t">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start text-blue-600 hover:bg-accent hover:text-accent-foreground"
+            onClick={() => navigate("/")}
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="ml-2">Volver al Inicio</span>
+          </Button>
+        </div>
 
         <div className="mt-auto p-3 border-t">
           <Button

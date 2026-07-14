@@ -103,16 +103,15 @@ export default function CheckinPage() {
     );
   }
 
+  const handleLogout = () => {
+  localStorage.removeItem("session");
+  localStorage.removeItem("token");
+  navigate("/auth");
+  };
+
   return (
     <div className="min-h-screen relative bg-slate-900">
-      {/* Floating Back Button */}
-      <button
-        onClick={() => navigate("/")}
-        className="fixed bottom-6 left-6 z-50 group flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-purple-600/90 to-fuchsia-600/90 backdrop-blur-md border border-purple-400/30 shadow-2xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300"
-      >
-        <ArrowLeft className="h-5 w-5 text-white group-hover:-translate-x-1 transition-transform" />
-        <span className="text-white font-semibold text-sm">Volver al Inicio</span>
-      </button>
+      
       <Suspense fallback={null}>
         <NeuralBackgroundPurple />
       </Suspense>

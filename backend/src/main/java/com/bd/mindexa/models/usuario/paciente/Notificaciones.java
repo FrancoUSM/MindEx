@@ -37,16 +37,24 @@ public class Notificaciones {
     private Usuario usuario;
 
     @OneToOne
-    @JoinColumn(name = "id_alertas_riesgo")
+    @JoinColumn(name = "id_alerta_riesgo")
     private AlertasRiesgo alertasRiesgo;
     
 
     private String contenido_notificacion;
-    public enum Categoria{ALERTA, AVISO}
+
+    public enum Categoria { ALERTA, AVISO }
+
+    @Enumerated(EnumType.STRING)
     private Categoria categoria;
+
     private LocalDate fecha_notificacion;
-    public enum EstadoEnvio{ENVIADO, ESPERANDO, DESECHADO};
+
+    public enum EstadoEnvio { ENVIADO, ESPERANDO, DESECHADO }
+
+    @Enumerated(EnumType.STRING)
     private EstadoEnvio estado_envio;
+
     private LocalDateTime creado_en;
     private LocalDateTime enviado_en;
 

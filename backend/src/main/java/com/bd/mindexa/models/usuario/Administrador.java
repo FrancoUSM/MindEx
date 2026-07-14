@@ -1,10 +1,14 @@
 package com.bd.mindexa.models.usuario;
+
 import java.time.LocalDateTime;
+
+import com.bd.mindexa.models.empresa.Empresa;
+
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
@@ -12,39 +16,28 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 @Data
 @Entity
-@Table(name = "usuario")
-@Setter
+@Table(name = "administrador")
 
+public class Administrador {
 
-public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private int idUsuario;
-    private String nombre;
-    private String apellido;
+    @Column(name = "id_administrador")
+    private int id_administrador;
 
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
-
-    public enum Rol {ADMIN,USER,PROFESIONAL, ADMINISTRADOR}
-
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
-    public enum Estado{ACTIVO, INACTIVO}
-    
-    private String correo;
-    private String telefono;
     private LocalDateTime creado_en;
     private LocalDateTime actualizado_en;
     private LocalDateTime desactivado_en;
 
-  
-
-
+    
 
 
 }

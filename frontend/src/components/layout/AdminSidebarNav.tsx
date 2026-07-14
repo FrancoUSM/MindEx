@@ -1,5 +1,4 @@
-import { FlaskConical, Building2, CreditCard, ShieldCheck, ArrowLeft, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { FlaskConical, Building2, CreditCard, ShieldCheck } from "lucide-react";
 
 interface AdminSidebarProps {
   activeSection: string;
@@ -28,14 +27,8 @@ const items = [
 ];
 
 export function AdminSidebar({ activeSection, onSectionChange }: AdminSidebarProps) {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("session");
-    localStorage.removeItem("token");
-    navigate("/auth");
-  };
   return (
-    <aside className="w-full lg:w-64 rounded-2xl border bg-white p-4 shadow-sm flex flex-col min-h-[520px]">
+    <aside className="w-full lg:w-64 rounded-2xl border bg-white p-4 shadow-sm">
       <div className="mb-4 flex items-center gap-2 rounded-xl bg-blue-50 p-3 text-blue-700">
         <ShieldCheck className="h-5 w-5" />
         <div>
@@ -71,18 +64,6 @@ export function AdminSidebar({ activeSection, onSectionChange }: AdminSidebarPro
           );
         })}
       </nav>
-            <div className="mt-auto border-t pt-3 space-y-2">
-        
-
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-left text-blue-600 hover:bg-blue-50 transition-colors"
-        >
-          <LogOut className="h-4 w-4" />
-          <span className="font-medium">Cerrar Sesión</span>
-        </button>
-      </div>
     </aside>
   );
 }

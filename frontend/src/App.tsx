@@ -14,7 +14,7 @@ import HistoryPage from "./pages/HistoryPage";
 import NotFound from "./pages/NotFound";
 import B2BOnboardingPage from "./pages/B2BOnboardingPage";
 import { useEffect } from "react";
-import AdminPage from "./pages/AdminPage";
+import AdministradorPage from "./pages/AdministradorPage";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +56,7 @@ const App = () => {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
 
-          <Route path="/admin" element={<AdminPage /> } />
+          <Route path="/admin" element={<AdministradorPage />} />
 
         </Routes>
       </BrowserRouter>
