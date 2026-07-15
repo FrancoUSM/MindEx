@@ -55,6 +55,7 @@ export default function AdminPage() {
 
   // Role-based protection: Only ADMINISTRADOR role can access this page
   useEffect(() => {
+    /*
     if (!session) {
       navigate("/auth");
       return;
@@ -67,9 +68,10 @@ export default function AdminPage() {
   }, [session, navigate]);
 
   // If not authorized, don't render anything
+  
   if (!session || session.rol !== "ADMINISTRADOR") {
-    return null;
-  }
+    return null;*/
+  }, []);
 
   const [activeSection, setActiveSection] = useState("history");
 
