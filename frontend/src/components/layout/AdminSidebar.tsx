@@ -1,4 +1,4 @@
-import { FlaskConical, Building2, CreditCard, ShieldCheck, ArrowLeft, LogOut } from "lucide-react";
+import { FlaskConical, Building2, CreditCard, ShieldCheck, ArrowLeft, LogOut, Briefcase } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface AdminSidebarProps {
@@ -12,6 +12,12 @@ const items = [
     label: "Tests",
     description: "Crear y ver evaluaciones",
     icon: FlaskConical,
+  },
+  {
+    id: "services",
+    label: "Servicios",
+    description: "Gestionar servicios",
+    icon: Briefcase,
   },
   {
     id: "subscriptions",

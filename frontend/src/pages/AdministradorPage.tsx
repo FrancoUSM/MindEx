@@ -50,8 +50,17 @@ interface CompanyItem {
   telefono: string;
 }
 
-const emptyTestForm = { id_servicio: "1", nombre_test: "", descripcion: "", questions: [] as { text: string; order: number }[] };
+interface ServiceItem {
+  id_servicio?: number;
+  nombreServicio?: string;
+  nombre_servicio?: string;
+  descripcion?: string;
+  tipo_servicio?: string;
+}
+
+const emptyTestForm = { id_servicio: "", nombre_test: "", descripcion: "", questions: [] as { text: string; order: number }[] };
 const emptySubscriptionForm = { id_empresa: "", id_plan: "", fecha_inicio: "", fecha_fin: "" };
+const emptyServiceForm = { nombre_servicio: "", descripcion_servicio: "", tipo_servicio: "" };
 
 export default function AdministradorPage() {
   const navigate = useNavigate();
@@ -78,6 +87,7 @@ export default function AdministradorPage() {
 
   const [activeSection, setActiveSection] = useState("tests");
   const [tests, setTests] = useState<TestItem[]>([]);
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const [subscriptions, setSubscriptions] = useState<SubscriptionItem[]>([]);
   const [companies, setCompanies] = useState<CompanyItem[]>([]);
   const [plans, setPlans] = useState<PlanItem[]>([]);
@@ -86,8 +96,10 @@ export default function AdministradorPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   const [testForm, setTestForm] = useState(emptyTestForm);
+  const [serviceForm, setServiceForm] = useState(emptyServiceForm);
   const [subscriptionForm, setSubscriptionForm] = useState(emptySubscriptionForm);
   const [editingSubscriptionId, setEditingSubscriptionId] = useState<number | null>(null);
+  const [editingServiceId, setEditingServiceId] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const loadData = async () => {
@@ -97,8 +109,9 @@ export default function AdministradorPage() {
     setError(null);
 
     try {
-      const [testsRes, subscriptionsRes, companiesRes, plansRes] = await Promise.all([
+      const [testsRes, servicesRes, subscriptionsRes, companiesRes, plansRes] = await Promise.all([
         authFetch(`${import.meta.env.VITE_API_URL}/api/test`),
+        authFetch(`${import.meta.env.VITE_API_URL}/api/servicio`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/suscripcion`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/empresa`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/plan`),
@@ -110,6 +123,15 @@ export default function AdministradorPage() {
           setTests(Array.isArray(testsData) ? testsData : []);
         } catch {
           setTests([]);
+        }
+      }
+
+      if (servicesRes.ok) {
+        try {
+          const servicesData = await servicesRes.json();
+          setServices(Array.isArray(servicesData) ? servicesData : []);
+        } catch {
+          setServices([]);
         }
       }
 
@@ -210,6 +232,74 @@ export default function AdministradorPage() {
     });
   };
 
+  const saveService = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!serviceForm.nombre_servicio || !serviceForm.tipo_servicio) {
+      setError("Completa al menos nombre y tipo del servicio");
+      setSuccess(null);
+      return;
+    }
+
+    setSubmitting(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const endpoint = editingServiceId
+        ? `${import.meta.env.VITE_API_URL}/api/servicio/actualizar/${editingServiceId}`
+        : `${import.meta.env.VITE_API_URL}/api/servicio/crear-servicio`;
+      const response = await authFetch(endpoint, {
+        method: editingServiceId ? "PUT" : "POST",
+        body: JSON.stringify({
+          nombre_servicio: serviceForm.nombre_servicio,
+          descripcion_servicio: serviceForm.descripcion_servicio,
+          tipo_servicio: serviceForm.tipo_servicio,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("No se pudo guardar el servicio");
+      }
+
+      setSuccess(editingServiceId ? "Servicio actualizado exitosamente" : "Servicio creado exitosamente");
+      setServiceForm(emptyServiceForm);
+      setEditingServiceId(null);
+      await loadData();
+    } catch (e: any) {
+      setError(e.message ?? "No se pudo guardar el servicio");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const deleteService = async (id: number) => {
+    if (!window.confirm("¿Deseas eliminar este servicio?")) return;
+
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const response = await authFetch(`${import.meta.env.VITE_API_URL}/api/servicio/eliminar/${id}`, { method: "DELETE" });
+      if (!response.ok) {
+        throw new Error("No se pudo eliminar el servicio");
+      }
+      setSuccess("Servicio eliminado exitosamente");
+      await loadData();
+    } catch (e: any) {
+      setError(e.message ?? "No se pudo eliminar el servicio");
+    }
+  };
+
+  const startEditService = (item: ServiceItem) => {
+    setEditingServiceId(item.id_servicio);
+    setServiceForm({
+      nombre_servicio: item.nombreServicio || item.nombre_servicio || "",
+      descripcion_servicio: item.descripcion || "",
+      tipo_servicio: item.tipo_servicio || "",
+    });
+    setActiveSection("services");
+  };
+
   const saveSubscription = async (event: FormEvent) => {
     event.preventDefault();
     if (!subscriptionForm.id_empresa || !subscriptionForm.id_plan || !subscriptionForm.fecha_inicio || !subscriptionForm.fecha_fin) {
@@ -282,9 +372,10 @@ export default function AdministradorPage() {
 
   const summary = useMemo(() => (({
     tests: tests.length,
+    services: services.length,
     subscriptions: subscriptions.length,
     companies: companies.length,
-  })), [tests.length, subscriptions.length, companies.length]);
+  })), [tests.length, services.length, subscriptions.length, companies.length]);
 
   if (!session) {
     return (
@@ -318,11 +409,17 @@ export default function AdministradorPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-4">
             <Card>
               <CardContent className="pt-6 text-center">
                 <div className="text-2xl font-bold text-blue-600">{summary.tests}</div>
                 <div className="text-sm text-slate-500">Tests psicológicos</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6 text-center">
+                <div className="text-2xl font-bold text-purple-600">{summary.services}</div>
+                <div className="text-sm text-slate-500">Servicios</div>
               </CardContent>
             </Card>
             <Card>
@@ -352,8 +449,19 @@ export default function AdministradorPage() {
                 <form onSubmit={createTest} className="space-y-6">
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="id_servicio">ID de servicio</Label>
-                      <Input id="id_servicio" value={testForm.id_servicio} onChange={(e) => setTestForm({ ...testForm, id_servicio: e.target.value })} placeholder="Ej. 1" />
+                      <Label htmlFor="id_servicio">Servicio</Label>
+                      <Select value={testForm.id_servicio} onValueChange={(value) => setTestForm({ ...testForm, id_servicio: value })}>
+                        <SelectTrigger id="id_servicio">
+                          <SelectValue placeholder="Selecciona un servicio" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {services.map((service) => (
+                            <SelectItem key={service.id_servicio} value={service.id_servicio?.toString() || ""}>
+                              {service.nombreServicio || service.nombre_servicio || `Servicio ${service.id_servicio}`}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="nombre_test">Nombre del test</Label>
@@ -491,6 +599,59 @@ export default function AdministradorPage() {
                               <Pencil className="mr-2 h-4 w-4" /> Editar
                             </Button>
                             <Button variant="destructive" size="sm" onClick={() => deleteSubscription(item.id_suscripcion)}>
+                              <Trash2 className="mr-2 h-4 w-4" /> Eliminar
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {activeSection === "services" ? (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Building2 className="h-5 w-5" /> Servicios</CardTitle>
+                <CardDescription>Crea, edita o elimina servicios psicológicos disponibles.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <form onSubmit={saveService} className="space-y-4 rounded-xl border p-4">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="nombre_servicio">Nombre del servicio</Label>
+                      <Input id="nombre_servicio" value={serviceForm.nombre_servicio} onChange={(e) => setServiceForm({ ...serviceForm, nombre_servicio: e.target.value })} placeholder="Ej. Evaluación Psicológica" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="tipo_servicio">Tipo de servicio</Label>
+                      <Input id="tipo_servicio" value={serviceForm.tipo_servicio} onChange={(e) => setServiceForm({ ...serviceForm, tipo_servicio: e.target.value })} placeholder="Ej. Psicología Clínica" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="descripcion_servicio">Descripción</Label>
+                    <Textarea id="descripcion_servicio" value={serviceForm.descripcion_servicio} onChange={(e) => setServiceForm({ ...serviceForm, descripcion_servicio: e.target.value })} placeholder="Describe el servicio" />
+                  </div>
+                  <Button type="submit" disabled={submitting}>{submitting ? "Guardando..." : editingServiceId ? "Actualizar servicio" : "Crear servicio"}</Button>
+                </form>
+
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-slate-800">Servicios registrados</h3>
+                  {loading ? <p className="text-sm text-slate-500">Cargando...</p> : services.length === 0 ? <p className="text-sm text-slate-500">No hay servicios registrados.</p> : (
+                    <div className="space-y-2">
+                      {services.map((item) => (
+                        <div key={item.id_servicio} className="flex flex-col gap-2 rounded-xl border p-3 md:flex-row md:items-center md:justify-between">
+                          <div>
+                            <p className="font-medium">{item.nombreServicio || item.nombre_servicio}</p>
+                            <p className="text-sm text-slate-500">{item.tipo_servicio}</p>
+                            {item.descripcion && <p className="text-xs text-slate-400 mt-1">{item.descripcion}</p>}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button variant="outline" size="sm" onClick={() => startEditService(item)}>
+                              <Pencil className="mr-2 h-4 w-4" /> Editar
+                            </Button>
+                            <Button variant="destructive" size="sm" onClick={() => deleteService(item.id_servicio!)}>
                               <Trash2 className="mr-2 h-4 w-4" /> Eliminar
                             </Button>
                           </div>

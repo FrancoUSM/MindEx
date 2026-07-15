@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +27,11 @@ import lombok.RequiredArgsConstructor;
 public class ServicioController {
 
     private final com.bd.mindexa.services.servicio.ServicioServicio servicioServicio;
+
+    @GetMapping
+    public ResponseEntity<List<Servicio>> getServicios(){
+        return ResponseEntity.ok(servicioServicio.getServicios());
+    }
 
     @PostMapping("/crear-servicio")
     public ResponseEntity<Map<String, Object>> crearServicio(@RequestBody DTORegistroServicio request){

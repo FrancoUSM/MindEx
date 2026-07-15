@@ -3,6 +3,7 @@ package com.bd.mindexa.services.servicio;
 import io.micrometer.common.lang.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,10 @@ public class ServicioServicio {
 
     public Servicio getServicioById(int id){
         return repositorioServicio.findById(id).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+    }
+
+    public List<Servicio> getServicios(){
+        return repositorioServicio.findAll();
     }
 
 }
