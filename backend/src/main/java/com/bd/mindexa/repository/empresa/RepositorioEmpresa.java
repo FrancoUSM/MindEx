@@ -7,5 +7,4 @@ import com.bd.mindexa.models.empresa.Empresa;
 public interface RepositorioEmpresa extends JpaRepository<Empresa, Integer> {
 
     Optional<Empresa> findByRazonSocialIgnoreCase(String razonSocial);
-
 }

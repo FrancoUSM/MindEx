@@ -27,10 +27,10 @@ public class OrquestadorPaciente {
     private final ServicioHistorialPaciente servicioHistorialPaciente;
 
     @Transactional
-    public void crearPacienteYAsignarSuscripcion(DTORegistroPaciente request){
+    public void crearPacienteYAsignarSuscripcion(int id_usuario, int id_suscripcion){
         //Crear paciente
-        Paciente paciente = servicioPaciente.crearPaciente(request.id_usuario);
-        Suscripcion suscripcion = servicioSuscripcion.getSuscripcionById(request.id_suscripcion);
+        Paciente paciente = servicioPaciente.crearPaciente(id_usuario);
+        Suscripcion suscripcion = servicioSuscripcion.getSuscripcionById(id_suscripcion);
         
         PacienteSuscrito pacienteSuscrito = servicioPacienteSuscrito.crearPacienteSuscrito(paciente.getId_paciente(), suscripcion.getId_suscripcion());
         HistorialPaciente historialPaciente = servicioHistorialPaciente.crearHistorialPaciente(paciente.getId_paciente());

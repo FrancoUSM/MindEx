@@ -50,6 +50,25 @@ export default function AdministradorPage() {
   const navigate = useNavigate();
   const session = useMemo(() => getSession(), []);
 
+  // Role-based protection: Only ADMIN role can access this page
+  useEffect(() => {
+    if (!session) {
+      navigate("/auth");
+      return;
+    }
+
+    if (session.rol !== "ADMIN") {
+      navigate("/");
+      return;
+    }
+  }, [session, navigate]);
+
+  // If not authorized, don't render anything
+  if (!session || session.rol !== "ADMIN") {
+    return null;
+  }
+  const session = useMemo(() => getSession(), []);
+
   const [activeSection, setActiveSection] = useState("tests");
   const [tests, setTests] = useState<TestItem[]>([]);
   const [subscriptions, setSubscriptions] = useState<SubscriptionItem[]>([]);

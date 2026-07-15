@@ -36,7 +36,7 @@ public class PacienteController {
             return ResponseEntity.badRequest().body(Map.of("message", "Datos de paciente no proporcionados"));
         }
 
-        orquestadorPaciente.crearPacienteYAsignarSuscripcion(request);
+        orquestadorPaciente.crearPacienteYAsignarSuscripcion(request.id_usuario, request.id_suscripcion);
         return ResponseEntity.ok(Map.of("message", "Paciente creado y suscripción asignada correctamente"));
     }
 

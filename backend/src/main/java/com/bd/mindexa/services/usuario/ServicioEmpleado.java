@@ -6,9 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.bd.mindexa.dto.registros.DTORegistroUsuarioEmpresaRequest;
 import com.bd.mindexa.models.empresa.Empresa;
+import com.bd.mindexa.models.suscripcion.Suscripcion;
 import com.bd.mindexa.models.usuario.Usuario;
+import com.bd.mindexa.orquestador.OrquestadorPaciente;
 import com.bd.mindexa.models.usuario.Empleado;
 import com.bd.mindexa.repository.empresa.RepositorioEmpresa;
+import com.bd.mindexa.repository.suscripcion.RepositorioSuscripcion;
 import com.bd.mindexa.repository.usuario.RepositorioEmpleado;
 import jakarta.transaction.Transactional;
 
@@ -24,6 +27,8 @@ public class ServicioEmpleado {
     private final RepositorioEmpleado repositorioEmpleado; // final aquí es correcto
     private final RepositorioEmpresa repositorioEmpresa;
     private final ServicioUsuario servicioUsuario;
+    private final OrquestadorPaciente orquestadorPaciente;
+    private final RepositorioSuscripcion repositorioSuscripcion;
 
     public List<Empleado> getUsuarios() {
         return repositorioEmpleado.findAll();
@@ -57,6 +62,10 @@ public class ServicioEmpleado {
     empleado.setContratista(request.contratista);
     empleado.setCreado_en(LocalDateTime.now());
     empleado.setActualizado_en(LocalDateTime.now());
+    Suscripcion suscripcion = repositorioSuscripcion.findByIdEmpresa(empresa.getId_empresa())
+            .orElseThrow(() -> new RuntimeException("Suscripción no encontrada para la empresa"));
+
+    orquestadorPaciente.crearPacienteYAsignarSuscripcion(usuario.getIdUsuario(), suscripcion.getId_suscripcion());
 
     repositorioEmpleado.save(empleado);
     log.info("Usuario {} registrado correctamente", request.correo);

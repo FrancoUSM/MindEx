@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
+import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import Index from "./pages/Index";
 import CheckinPage from "./pages/CheckinPage";
 import EvaluationsPage from "./pages/EvaluationsPage";
@@ -34,32 +35,50 @@ const App = () => {
           {/*<Route path="/professionals" element={<ProfessionalsPage />} />*/}
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/checkin" element={
-            <AppLayout>
-              <CheckinPage />
-            </AppLayout>
+            <ProtectedRoute requiredRole="USER">
+              <AppLayout>
+                <CheckinPage />
+              </AppLayout>
+            </ProtectedRoute>
           } />
           <Route path="/evaluations" element={
-            <AppLayout>
-              <EvaluationsPage />
-            </AppLayout>
+            <ProtectedRoute requiredRole="USER">
+              <AppLayout>
+                <EvaluationsPage />
+              </AppLayout>
+            </ProtectedRoute>
           } />
           <Route path="/settings" element={
-            <AppLayout>
-              <SettingsPage />
-            </AppLayout>
+            <ProtectedRoute requiredRole="USER">
+              <AppLayout>
+                <SettingsPage />
+              </AppLayout>
+            </ProtectedRoute>
           } />
           <Route path="/history" element={
-            <AppLayout>
-              <HistoryPage />
-            </AppLayout>
+            <ProtectedRoute requiredRole="USER">
+              <AppLayout>
+                <HistoryPage />
+              </AppLayout>
+            </ProtectedRoute>
           } />
           <Route path="/empresa" element={<B2BOnboardingPage />} />
+          
+          {/* Role-based protected routes */}
+          <Route path="/admin" element={
+            <ProtectedRoute requiredRole="ADMIN">
+              <AdministradorPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/administrativo" element={
+            <ProtectedRoute requiredRole="ADMINISTRADOR">
+              <AdminPage />
+            </ProtectedRoute>
+          } />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-
-          <Route path="/admin" element={<AdministradorPage />} />
-
-          <Route path="/administrativo" element={<AdminPage />} />
 
         </Routes>
       </BrowserRouter>

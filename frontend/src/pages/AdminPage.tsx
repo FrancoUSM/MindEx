@@ -12,11 +12,13 @@ import {
   LogIn,
   AlertTriangle,
   Pencil,
+  Brain,
+  TrendingUp,
 } from "lucide-react";
 
 import { getSession } from "@/lib/auth";
 import { authFetch } from "@/lib/api";
-import {AppSidebar} from "@/components/layout/AppSidebar";
+import { AdminSidebarNav } from "@/components/layout/AdminSidebarNav";
 
 import {
   Dialog,
@@ -39,20 +41,40 @@ interface PacienteEmpresa {
   usuario?: UsuarioSlim;
 }
 
+interface EmployeePsychologicalData {
+  testCount: number;
+  lastTestDate?: string;
+  consistency: number; // percentage 0-100
+  averageScore?: number;
+}
+
 
 export default function AdminPage() {
-  const sidebarItems = [
-    {
-      title: "Panel de Empresa",
-      url: "/admin",
-      icon: Building2,
-      roles: ["admin"]
-    },
-  ];
   const navigate = useNavigate();
   const session = getSession();
 
+  // Role-based protection: Only ADMINISTRADOR role can access this page
+  useEffect(() => {
+    if (!session) {
+      navigate("/auth");
+      return;
+    }
+
+    if (session.rol !== "ADMINISTRADOR") {
+      navigate("/");
+      return;
+    }
+  }, [session, navigate]);
+
+  // If not authorized, don't render anything
+  if (!session || session.rol !== "ADMINISTRADOR") {
+    return null;
+  }
+
+  const [activeSection, setActiveSection] = useState("history");
+
   const [data, setData] = useState<PacienteEmpresa[]>([]);
+  const [psychologicalData, setPsychologicalData] = useState<Record<number, EmployeePsychologicalData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -152,135 +174,196 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
+    <div className="container mx-auto py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* SIDEBAR */}
+        <div className="lg:col-span-1">
+          <AdminSidebarNav activeSection={activeSection} onSectionChange={setActiveSection} />
+        </div>
 
-      {/* HEADER */}
-      <div className="flex items-center gap-3">
-        <Users className="h-6 w-6 text-primary" />
-        <div>
-          <h1 className="text-2xl font-bold">
-            Panel de Empresa
-          </h1>
-          <p className="text-sm text-slate-500">
-            Gestión de trabajadores
-          </p>
+        {/* MAIN CONTENT */}
+        <div className="lg:col-span-3 space-y-6">
+          {/* HEADER */}
+          <div className="flex items-center gap-3">
+            <Users className="h-6 w-6 text-primary" />
+            <div>
+              <h1 className="text-2xl font-bold">
+                {activeSection === "history" ? "Historial de Empleados" : "Configuración"}
+              </h1>
+              <p className="text-sm text-slate-500">
+                {activeSection === "history" 
+                  ? "Revisa el historial y consistencia de tus empleados" 
+                  : "Configura la empresa"}
+              </p>
+            </div>
+          </div>
+
+          {/* HISTORY SECTION */}
+          {activeSection === "history" && (
+            <>
+              {/* SEARCH */}
+              <Input
+                placeholder="Buscar empleado..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
+              {/* SUMMARY CARDS */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card>
+                  <CardContent className="pt-6 text-center">
+                    <div className="text-2xl font-bold">
+                      {data.length}
+                    </div>
+                    <div className="text-sm text-slate-500">
+                      Empleados Totales
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="pt-6 text-center">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {new Set(data.map(d => d.turno)).size}
+                    </div>
+                    <div className="text-sm text-slate-500">
+                      Turnos
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="pt-6 text-center">
+                    <div className="text-2xl font-bold text-green-600">
+                      {new Set(data.map(d => d.faena)).size}
+                    </div>
+                    <div className="text-sm text-slate-500">
+                      Faenas
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* EMPLOYEES TABLE WITH PSYCHOLOGICAL DATA */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-purple-600" />
+                    Historial de Empleados
+                  </CardTitle>
+                  <CardDescription>
+                    Información de participación en evaluaciones psicológicas y consistencia
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent>
+
+                  {loading && (
+                    <div className="text-center py-10 text-slate-400">
+                      Cargando...
+                    </div>
+                  )}
+
+                  {error && (
+                    <div className="text-center text-red-500">
+                      {error}
+                    </div>
+                  )}
+
+                  {!loading && !error && (
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b bg-slate-50">
+                            <th className="text-left p-3 font-semibold">Nombre</th>
+                            <th className="text-left p-3 font-semibold">Correo</th>
+                            <th className="text-left p-3 font-semibold">Cargo</th>
+                            <th className="text-center p-3 font-semibold">
+                              <div className="flex items-center justify-center gap-1">
+                                <Brain className="h-4 w-4" />
+                                Tests
+                              </div>
+                            </th>
+                            <th className="text-center p-3 font-semibold">
+                              <div className="flex items-center justify-center gap-1">
+                                <TrendingUp className="h-4 w-4" />
+                                Consistencia
+                              </div>
+                            </th>
+                            <th className="text-right p-3 font-semibold">Acciones</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {filtered.map(p => (
+                            <tr key={p.id_empleado} className="border-b hover:bg-slate-50">
+                              <td className="p-3 font-medium">{p.usuario?.nombre ?? "—"}</td>
+                              <td className="p-3 text-slate-600">{p.usuario?.correo ?? "—"}</td>
+                              <td className="p-3">{p.cargo}</td>
+                              <td className="p-3 text-center">
+                                <Badge variant="outline" className="bg-blue-50">
+                                  {psychologicalData[p.id_empleado]?.testCount ?? 0} tests
+                                </Badge>
+                              </td>
+                              <td className="p-3 text-center">
+                                <div className="flex items-center justify-center gap-2">
+                                  <div className="w-24 bg-slate-200 rounded-full h-2">
+                                    <div
+                                      className="bg-green-500 h-2 rounded-full transition-all"
+                                      style={{ width: `${psychologicalData[p.id_empleado]?.consistency ?? 0}%` }}
+                                    ></div>
+                                  </div>
+                                  <span className="text-sm font-medium min-w-10">
+                                    {psychologicalData[p.id_empleado]?.consistency ?? 0}%
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="p-3 text-right space-x-2">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => openEdit(p)}
+                                >
+                                  <Pencil className="h-4 w-4" />
+                                </Button>
+
+                                <Button
+                                  size="sm"
+                                  variant="destructive"
+                                  onClick={() => deactivate(p.id_empleado)}
+                                >
+                                  Desactivar
+                                </Button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </>
+          )}
+
+          {/* SETTINGS SECTION */}
+          {activeSection === "settings" && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Configuración de Empresa</CardTitle>
+                <CardDescription>
+                  Configura los parámetros de tu empresa
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-slate-600">
+                  <p>Próximamente: Configuración de planes, costos por usuario y más opciones.</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
-
-      {/* SEARCH */}
-      <Input
-        placeholder="Buscar trabajador..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      {/* CARDS */}
-      <div className="grid grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <div className="text-2xl font-bold">
-              {data.length}
-            </div>
-            <div className="text-sm text-slate-500">
-              Trabajadores
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <div className="text-2xl font-bold text-blue-600">
-              {new Set(data.map(d => d.turno)).size}
-            </div>
-            <div className="text-sm text-slate-500">
-              Turnos
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {new Set(data.map(d => d.faena)).size}
-            </div>
-            <div className="text-sm text-slate-500">
-              Faenas
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* TABLE */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Trabajadores</CardTitle>
-          <CardDescription>
-            Lista de personal de la empresa
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-
-          {loading && (
-            <div className="text-center py-10 text-slate-400">
-              Cargando...
-            </div>
-          )}
-
-          {error && (
-            <div className="text-center text-red-500">
-              {error}
-            </div>
-          )}
-
-          {!loading && !error && (
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-left">
-                  <th>Nombre</th>
-                  <th>Correo</th>
-                  <th>Cargo</th>
-                  <th>Turno</th>
-                  <th>Faena</th>
-                  <th className="text-right">Acciones</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {filtered.map(p => (
-                  <tr key={p.id_empleado} className="border-b">
-                    <td>{p.usuario?.nombre ?? ""}</td>
-                    <td>{p.usuario?.correo ?? ""}</td>
-
-                    <td>{p.cargo}</td>
-                    <td>
-                      <Badge>{p.turno}</Badge>
-                    </td>
-                    <td>{p.faena}</td>
-                    <td className="text-right">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => openEdit(p)}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-
-                    <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => deactivate(p.id_empleado)}>
-                    Desactivar
-                </Button>
-
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </CardContent>
-      </Card>
 
       {/* MODAL EDIT */}
       <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>

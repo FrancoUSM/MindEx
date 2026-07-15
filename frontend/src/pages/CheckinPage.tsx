@@ -12,9 +12,24 @@ import { getRandomCopy, RETURN_COPYS, POST_CHECKIN_COPYS } from "@/lib/copys";
 import { useNavigate } from "react-router-dom";
 import NeuralBackgroundPurple from "@/components/three/NeuralBackgroundPurple";
 import mindexaLogo from "@/assets/mindexa-logo-slogan.png";
+import { getSession } from "@/lib/auth";
 
 export default function CheckinPage() {
   const navigate = useNavigate();
+  const session = getSession();
+
+  // Role-based protection: Only USER role can access this page
+  useEffect(() => {
+    if (!session || session.rol !== "USER") {
+      navigate("/");
+      return;
+    }
+  }, [session, navigate]);
+
+  // If not authorized, don't render anything
+  if (!session || session.rol !== "USER") {
+    return null;
+  }
   
   // Consent state
   const [hasConsented, setHasConsented] = useState(() => {
