@@ -19,7 +19,7 @@ public class OrquestadorTest {
     
     @Transactional
     public void registroCompletoTest(DTORegistroTestyPreguntas request){
-        Test createdTest = servicioTest.crearTest(request.id_servicio, request.nombre_test, request.descripcion);
+        Test createdTest = servicioTest.crearTest(1, request.nombre_test, request.descripcion);
 
         request.preguntas.forEach((pregunta, orden) -> {
             servicioPreguntasTest.crearPreguntasTest(createdTest.getId_test(), pregunta, orden);
