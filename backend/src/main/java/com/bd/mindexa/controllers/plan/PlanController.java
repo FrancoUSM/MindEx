@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -48,7 +49,7 @@ return ResponseEntity.ok(Map.of("message", "Plan creado correctamente"));
 }
 
 //ACTUALIZAR
-@PostMapping("/actualizar/{id}")
+@PutMapping("/actualizar/{id}")
 public ResponseEntity<Map<String, String>> actualizarPlan(@PathVariable int id, @RequestBody DTORegistroPlan request){
     Plan plan = servicioPlan.getPlanById(id);
     servicioPlan.actualizarPlan(plan, request.nombre_plan, request.tipo_plan, request.descripcion_plan, request.precio_por_usuario, request.duracion_meses);

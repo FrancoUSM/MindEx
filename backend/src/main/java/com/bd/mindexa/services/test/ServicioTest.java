@@ -1,6 +1,6 @@
 package com.bd.mindexa.services.test;
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 
 import com.bd.mindexa.models.servicio.Servicio;
@@ -66,5 +66,8 @@ public class ServicioTest {
                 .orElseThrow(() -> new RuntimeException("Test no encontrado"));
     }
 
+    public List<Test> getTests(){
+        return repositorioTest.findAll();
+    }
 
 }

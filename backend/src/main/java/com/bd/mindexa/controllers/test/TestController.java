@@ -12,6 +12,7 @@ import com.bd.mindexa.services.test.ServicioTest;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,8 @@ public class TestController {
 
 
     @GetMapping("")
-    public ResponseEntity<Map<String,String>> getTests(){
-        return ResponseEntity.ok(Map.of("message", "Tests obtenidos correctamente"));
+    public ResponseEntity<List<Test>> getTests(){
+        return ResponseEntity.ok(servicioTest.getTests());
     }
 
     @PostMapping("/crear")

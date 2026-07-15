@@ -7,6 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { AlertTriangle, Building2, CreditCard, FlaskConical, LogIn, ShieldCheck, Trash2, Pencil, Plus, X } from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { authFetch } from "@/lib/api";
@@ -76,6 +83,7 @@ export default function AdministradorPage() {
   const [plans, setPlans] = useState<PlanItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const [testForm, setTestForm] = useState(emptyTestForm);
   const [subscriptionForm, setSubscriptionForm] = useState(emptySubscriptionForm);
@@ -89,11 +97,21 @@ export default function AdministradorPage() {
     setError(null);
 
     try {
-      const [subscriptionsRes, companiesRes, plansRes] = await Promise.all([
+      const [testsRes, subscriptionsRes, companiesRes, plansRes] = await Promise.all([
+        authFetch(`${import.meta.env.VITE_API_URL}/api/test`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/suscripcion`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/empresa`),
         authFetch(`${import.meta.env.VITE_API_URL}/api/plan`),
       ]);
+
+      if (testsRes.ok) {
+        try {
+          const testsData = await testsRes.json();
+          setTests(Array.isArray(testsData) ? testsData : []);
+        } catch {
+          setTests([]);
+        }
+      }
 
       if (subscriptionsRes.ok) {
         setSubscriptions(await subscriptionsRes.json());
@@ -121,15 +139,20 @@ export default function AdministradorPage() {
     event.preventDefault();
     if (!testForm.nombre_test || !testForm.descripcion) {
       setError("Completa nombre y descripción del test");
+      setSuccess(null);
       return;
     }
 
     if (testForm.questions.length === 0) {
       setError("Agrega al menos una pregunta al test");
+      setSuccess(null);
       return;
     }
 
     setSubmitting(true);
+    setError(null);
+    setSuccess(null);
+    
     try {
       // Convert questions array to Map format expected by backend
       const preguntas: { [key: string]: number } = {};
@@ -151,11 +174,9 @@ export default function AdministradorPage() {
         throw new Error("No se pudo crear el test");
       }
 
+      setSuccess("Test creado exitosamente");
       setTestForm(emptyTestForm);
-      setTests((prev) => [
-        ...prev,
-        { id_test: Date.now(), nombre_test: testForm.nombre_test, descripcion: testForm.descripcion },
-      ]);
+      await loadData();
     } catch (e: any) {
       setError(e.message ?? "No se pudo crear el test");
     } finally {
@@ -193,10 +214,14 @@ export default function AdministradorPage() {
     event.preventDefault();
     if (!subscriptionForm.id_empresa || !subscriptionForm.id_plan || !subscriptionForm.fecha_inicio || !subscriptionForm.fecha_fin) {
       setError("Completa todos los campos de la suscripción");
+      setSuccess(null);
       return;
     }
 
     setSubmitting(true);
+    setError(null);
+    setSuccess(null);
+    
     try {
       const endpoint = editingSubscriptionId
         ? `${import.meta.env.VITE_API_URL}/api/suscripcion/actualizar/${editingSubscriptionId}`
@@ -215,6 +240,7 @@ export default function AdministradorPage() {
         throw new Error("No se pudo guardar la suscripción");
       }
 
+      setSuccess(editingSubscriptionId ? "Suscripción actualizada exitosamente" : "Suscripción creada exitosamente");
       setSubscriptionForm(emptySubscriptionForm);
       setEditingSubscriptionId(null);
       await loadData();
@@ -228,11 +254,15 @@ export default function AdministradorPage() {
   const deleteSubscription = async (id: number) => {
     if (!window.confirm("¿Deseas desactivar esta suscripción?")) return;
 
+    setError(null);
+    setSuccess(null);
+    
     try {
       const response = await authFetch(`${import.meta.env.VITE_API_URL}/api/suscripcion/eliminar/${id}`, { method: "DELETE" });
       if (!response.ok) {
         throw new Error("No se pudo eliminar la suscripción");
       }
+      setSuccess("Suscripción desactivada exitosamente");
       await loadData();
     } catch (e: any) {
       setError(e.message ?? "No se pudo eliminar la suscripción");
@@ -310,6 +340,7 @@ export default function AdministradorPage() {
           </div>
 
           {error ? <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</div> : null}
+          {success ? <div className="rounded-xl border border-green-200 bg-green-50 p-3 text-sm text-green-700">{success}</div> : null}
 
           {activeSection === "tests" ? (
             <Card>
@@ -405,11 +436,33 @@ export default function AdministradorPage() {
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="id_empresa">Empresa</Label>
-                      <Input id="id_empresa" value={subscriptionForm.id_empresa} onChange={(e) => setSubscriptionForm({ ...subscriptionForm, id_empresa: e.target.value })} placeholder="ID de empresa" />
+                      <Select value={subscriptionForm.id_empresa} onValueChange={(value) => setSubscriptionForm({ ...subscriptionForm, id_empresa: value })}>
+                        <SelectTrigger id="id_empresa">
+                          <SelectValue placeholder="Selecciona una empresa" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {companies.map((company) => (
+                            <SelectItem key={company.id_empresa} value={company.id_empresa.toString()}>
+                              {company.nombre_comercial || company.razonSocial}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="id_plan">Plan</Label>
-                      <Input id="id_plan" value={subscriptionForm.id_plan} onChange={(e) => setSubscriptionForm({ ...subscriptionForm, id_plan: e.target.value })} placeholder="ID de plan" />
+                      <Select value={subscriptionForm.id_plan} onValueChange={(value) => setSubscriptionForm({ ...subscriptionForm, id_plan: value })}>
+                        <SelectTrigger id="id_plan">
+                          <SelectValue placeholder="Selecciona un plan" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {plans.map((plan) => (
+                            <SelectItem key={plan.id_plan} value={plan.id_plan.toString()}>
+                              {plan.nombre_plan} - ${plan.precio_por_usuario}/usuario
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="fecha_inicio">Fecha de inicio</Label>
