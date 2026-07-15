@@ -67,7 +67,7 @@ export default function AdministradorPage() {
   if (!session || session.rol !== "ADMIN") {
     return null;
   }
-  const session = useMemo(() => getSession(), []);
+  
 
   const [activeSection, setActiveSection] = useState("tests");
   const [tests, setTests] = useState<TestItem[]>([]);
