@@ -2,7 +2,7 @@ package com.bd.mindexa.dto.admin;
 
 public record DTOPacientePanel (
     
-        Integer id_paciente,
+        int id_paciente,
         String nombre,
         String apellido,
         String correo,
