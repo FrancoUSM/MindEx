@@ -29,20 +29,20 @@ public class ServicioEmpresa {
         empresa.setCreado_en(LocalDateTime.now());
         empresa.setActualizado_en(LocalDateTime.now());
         Empresa crearEmpresa = repositorioEmpresa.save(empresa);
-        log.info("Empresa con id {} guardada", crearEmpresa.getId_empresa());
+        log.info("Empresa con id {} guardada", crearEmpresa.getIdEmpresa());
         return crearEmpresa;
     }
 
 
      public Empresa actualizarEmpresa(Empresa empresa) {
-        Empresa empresaExistente = repositorioEmpresa.findById(empresa.getId_empresa())
+        Empresa empresaExistente = repositorioEmpresa.findById(empresa.getIdEmpresa())
                 .orElseThrow(() -> new RuntimeException("Empresa no encontrada para actualizar"));
 
         empresa.setCreado_en(empresaExistente.getCreado_en());
         empresa.setActualizado_en(LocalDateTime.now());
 
         Empresa empresaActualizada = repositorioEmpresa.save(empresa);
-        log.info("Empresa con id {} actualizada correctamente", empresaActualizada.getId_empresa());
+        log.info("Empresa con id {} actualizada correctamente", empresaActualizada.getIdEmpresa());
         return empresaActualizada;
     }
 
