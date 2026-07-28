@@ -47,7 +47,7 @@ public class TestController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Map<String,String>> actualizarTest(@PathVariable int id, @RequestBody DTORegistroTestyPreguntas  request){
         Test test = servicioTest.getTestById(id);
-        servicioTest.actualizarTest(test, request.nombre_test, request.descripcion);
+        servicioTest.actualizarTest(test, request.nombre_test, request.descripcion_test);
         return ResponseEntity.ok(Map.of("message", "Test actualizado correctamente"));
     }
 
