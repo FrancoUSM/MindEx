@@ -10,11 +10,11 @@ import com.bd.mindexa.dto.admin.DTOPacientePanel;
 import com.bd.mindexa.models.usuario.Paciente;
 
 public interface RepositorioPaciente extends JpaRepository<Paciente,Integer>{
-Optional<Paciente> findById(int id_paciente);
+Optional<Paciente> findById(int idPaciente);
 Optional<Paciente> findByUsuario(com.bd.mindexa.models.usuario.Usuario usuario);
 @Query("""
 SELECT new com.bd.mindexa.dto.admin.DTOPacientePanel(
-    p.id_paciente,
+    p.idPaciente,
     u.nombre,
     u.apellido,
     u.correo,
@@ -25,7 +25,7 @@ SELECT new com.bd.mindexa.dto.admin.DTOPacientePanel(
 FROM Paciente p
 JOIN p.usuario u
 JOIN Empleado e ON e.usuario = u
-WHERE e.empresa.id_empresa = :idEmpresa
+WHERE e.empresa.idEmpresa = :idEmpresa
 """)
 List<DTOPacientePanel> findPacientesByEmpresa(@Param("idEmpresa") int idEmpresa);
 

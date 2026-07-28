@@ -48,7 +48,7 @@ public class ServicioCheckinIDSM {
                 .orElseGet(() -> servicioPaciente.crearPaciente(dto.id_usuario));
 
         HistorialPaciente historial = repositorioHistorialPaciente.findByPaciente(paciente)
-                .orElseGet(() -> servicioHistorialPaciente.crearHistorialPaciente(paciente.getId_paciente()));
+                .orElseGet(() -> servicioHistorialPaciente.crearHistorialPaciente(paciente.getIdPaciente()));
 
         // Algoritmo IDSM-Plus
         int p1 = dto.claridad_mental, p2 = dto.estres_dificultad, p3 = dto.poca_energia;
@@ -124,7 +124,7 @@ public class ServicioCheckinIDSM {
                 .orElseGet(() -> servicioPaciente.crearPaciente(id_usuario));
 
         HistorialPaciente historial = repositorioHistorialPaciente.findByPaciente(paciente)
-                .orElseGet(() -> servicioHistorialPaciente.crearHistorialPaciente(paciente.getId_paciente()));
+                .orElseGet(() -> servicioHistorialPaciente.crearHistorialPaciente(paciente.getIdPaciente()));
 
         String contenido = String.format("%s score=%d/%d severidad=%s", tipo, score, max_score, severidad);
         String estadoRiesgo = mapSeveridad(severidad);

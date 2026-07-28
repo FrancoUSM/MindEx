@@ -22,7 +22,7 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_paciente")
-    private int id_paciente;
+    private int idPaciente;
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
