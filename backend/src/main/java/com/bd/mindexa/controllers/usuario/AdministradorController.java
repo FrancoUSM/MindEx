@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bd.mindexa.models.usuario.Usuario;
-import com.bd.mindexa.repository.usuario.RepositorioUsuario;
 import com.bd.mindexa.services.usuario.ServicioAdministrador;
-import com.bd.mindexa.services.usuario.ServicioUsuario;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdministradorController {
 
     private final ServicioAdministrador servicioAdministrador;
-    private final ServicioUsuario servicioUsuario;
 
     @PostMapping("/crear")
     public ResponseEntity<Map<String, Object>> crearAdministrador(@RequestBody String nombre, @RequestBody String apellido, @RequestBody String correo, @RequestBody String telefono) {
@@ -40,15 +36,14 @@ public class AdministradorController {
     }
 
    @GetMapping("/{id}")
-   public ResponseEntity<Map<String, Object>> getMethodName(@RequestParam int id) {
+   public ResponseEntity<Map<String, Object>> getAdministradorById(@PathVariable int id) {
          servicioAdministrador.getAdministradorById(id);
        return ResponseEntity.ok(Map.of("message", "Administrador encontrado"));
    }
 
    @GetMapping("/usuario/{idUsuario}")
    public ResponseEntity<Map<String, Object>> getAdministradorByUsuarioId(@PathVariable int idUsuario) {
-        Usuario usuario = servicioUsuario.getUsuarioById(idUsuario);
-       servicioAdministrador.getAdministradorByUsuario(usuario);
+       servicioAdministrador.getAdministradorByUsuarioId(idUsuario);
        return ResponseEntity.ok(Map.of("message", "Administrador encontrado para el usuario con ID: " + idUsuario));
    }
 
