@@ -25,10 +25,10 @@ public class ServicioSuscripcion {
     private final RepositorioPlan repositorioPlan;
     private final ServicioEstadoSuscripcion servicioEstadoSuscripcion;
     
-    public Suscripcion crearSuscripcion(int id_empresa, int id_plan, LocalDate fecha_inicio, LocalDate fecha_fin){
+    public Suscripcion crearSuscripcion(int idEmpresa, int id_plan, LocalDate fecha_inicio, LocalDate fecha_fin){
         Suscripcion suscripcion = new Suscripcion();
         
-        Empresa empresa = repositorioEmpresa.findById(id_empresa).
+        Empresa empresa = repositorioEmpresa.findById(idEmpresa).
                 orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
 
         Plan plan = repositorioPlan.findById(id_plan).

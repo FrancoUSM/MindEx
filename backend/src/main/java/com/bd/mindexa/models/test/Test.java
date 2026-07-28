@@ -33,11 +33,17 @@ public class Test {
     @JoinColumn(name = "id_servicio")
     private Servicio servicio;
     
+    @Column(name = "nombre_test")
     private String nombre_test;
     @Column(name = "descripcion_test")
     private String descripcion_test;
+    @Column(name = "creado_en")
     private LocalDateTime creado_en;
+
+    @Column(name = "actualizado_en")
     private LocalDateTime actualizado_en;
+
+    @Column(name = "desactivado_en")
     private LocalDateTime desactivado_en;
     
 

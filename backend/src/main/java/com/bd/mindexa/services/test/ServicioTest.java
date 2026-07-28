@@ -32,7 +32,7 @@ public class ServicioTest {
 
         test.setServicio(servicio);
         test.setNombre_test(nombre);
-        test.setDescripcion(descripcion);
+        test.setDescripcion_test(descripcion);
         test.setCreado_en(LocalDateTime.now());
         test.setActualizado_en(LocalDateTime.now());
         
@@ -45,8 +45,8 @@ public class ServicioTest {
         if (!nombre.equals(test.getNombre_test())) {
             test.setNombre_test(nombre);
         }
-        if (!descripcion.equals(test.getDescripcion())) {
-            test.setDescripcion(descripcion);
+        if (!descripcion.equals(test.getDescripcion_test())) {
+            test.setDescripcion_test(descripcion);
         }
         test.setActualizado_en(LocalDateTime.now());
         repositorioTest.save(test);
