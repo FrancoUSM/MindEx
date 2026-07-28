@@ -57,9 +57,9 @@ public List<DTOPacientePanel> getPacientesEmpresa(int id_usuario_admin) {
 
     Empleado empleadoAdmin = repositorioEmpleado.findByUsuario(admin).orElseThrow();
 
-    int id_empresa = empleadoAdmin.getEmpresa().getIdEmpresa();
+    int idEmpresa = empleadoAdmin.getEmpresa().getIdEmpresa();
 
-    return repositorioPaciente.findPacientesByEmpresa(id_empresa);
+    return repositorioPaciente.findPacientesByEmpresa(idEmpresa);
 }
 
 }
