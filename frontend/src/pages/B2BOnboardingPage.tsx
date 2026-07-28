@@ -24,7 +24,7 @@ interface Plan {
 }
 
 interface EmpresaCreada {
-  id_empresa: number;
+  idEmpresa: number;
   razonSocial: string;
   nombre_comercial: string;
 }
@@ -106,7 +106,7 @@ export default function B2BOnboardingPage() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Error al registrar la empresa");
       setEmpresa({
-        id_empresa: json.id_empresa,
+        idEmpresa: json.idEmpresa,
         razonSocial: json.razonSocial ?? razonSocial.trim(),
         nombre_comercial: (json.nombre_comercial ?? nombreComercial.trim()) || razonSocial.trim(),
       });
@@ -132,7 +132,7 @@ export default function B2BOnboardingPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id_empresa: empresa.id_empresa,
+          idEmpresa: empresa.idEmpresa,
           id_plan: planSeleccionado.id_plan,
           fecha_inicio: fechaInicio,
           fecha_fin: fechaFin,

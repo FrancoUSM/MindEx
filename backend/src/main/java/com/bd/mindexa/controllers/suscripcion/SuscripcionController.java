@@ -41,7 +41,7 @@ public class SuscripcionController {
     public ResponseEntity<Map<String, Object>> crearSuscripcion(@RequestBody DTOSuscripcionRequest request) {
         try {
             var suscripcion = servicioSuscripcion.crearSuscripcion(
-                request.id_empresa, request.id_plan, request.fecha_inicio, request.fecha_fin);
+                request.idEmpresa, request.id_plan, request.fecha_inicio, request.fecha_fin);
             return ResponseEntity.ok(Map.of(
                 "message", "Suscripción creada correctamente",
                 "id_suscripcion", suscripcion.getId_suscripcion()
