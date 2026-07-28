@@ -52,7 +52,6 @@ interface CompanyItem {
 
 interface ServiceItem {
   id_servicio?: number;
-  nombreServicio?: string;
   nombre_servicio?: string;
   descripcion?: string;
   tipo_servicio?: string;
@@ -293,7 +292,7 @@ export default function AdministradorPage() {
   const startEditService = (item: ServiceItem) => {
     setEditingServiceId(item.id_servicio);
     setServiceForm({
-      nombre_servicio: item.nombreServicio || item.nombre_servicio || "",
+      nombre_servicio: item.nombre_servicio || "",
       descripcion_servicio: item.descripcion || "",
       tipo_servicio: item.tipo_servicio || "",
     });
@@ -457,7 +456,7 @@ export default function AdministradorPage() {
                         <SelectContent>
                           {services.map((service) => (
                             <SelectItem key={service.id_servicio} value={service.id_servicio?.toString() || ""}>
-                              {service.nombreServicio || service.nombre_servicio || `Servicio ${service.id_servicio}`}
+                              {service.nombre_servicio || `Servicio ${service.id_servicio}`}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -643,7 +642,7 @@ export default function AdministradorPage() {
                       {services.map((item) => (
                         <div key={item.id_servicio} className="flex flex-col gap-2 rounded-xl border p-3 md:flex-row md:items-center md:justify-between">
                           <div>
-                            <p className="font-medium">{item.nombreServicio || item.nombre_servicio}</p>
+                            <p className="font-medium">{item.nombre_servicio}</p>
                             <p className="text-sm text-slate-500">{item.tipo_servicio}</p>
                             {item.descripcion && <p className="text-xs text-slate-400 mt-1">{item.descripcion}</p>}
                           </div>
