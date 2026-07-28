@@ -32,8 +32,8 @@ public class OrquestadorPaciente {
         Paciente paciente = servicioPaciente.crearPaciente(id_usuario);
         Suscripcion suscripcion = servicioSuscripcion.getSuscripcionById(id_suscripcion);
         
-        PacienteSuscrito pacienteSuscrito = servicioPacienteSuscrito.crearPacienteSuscrito(paciente.getId_paciente(), suscripcion.getId_suscripcion());
-        HistorialPaciente historialPaciente = servicioHistorialPaciente.crearHistorialPaciente(paciente.getId_paciente());
+        PacienteSuscrito pacienteSuscrito = servicioPacienteSuscrito.crearPacienteSuscrito(paciente.getIdPaciente(), suscripcion.getId_suscripcion());
+        HistorialPaciente historialPaciente = servicioHistorialPaciente.crearHistorialPaciente(paciente.getIdPaciente());
 
         
     }
