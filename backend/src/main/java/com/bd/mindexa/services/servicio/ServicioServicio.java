@@ -24,7 +24,7 @@ public class ServicioServicio {
         Servicio servicio = new Servicio();
 
         servicio.setNombreServicio(nombre_servicio);
-        servicio.setDescripcion(descripcion_servicio);
+        servicio.setDescripcion_servicio(descripcion_servicio);
         servicio.setTipo_servicio(tipo_servicio);
         servicio.setCreado_en(LocalDateTime.now());
         servicio.setActualizado_en(LocalDateTime.now());
@@ -37,7 +37,7 @@ public class ServicioServicio {
             servicio.setNombreServicio(nombre_servicio);
         }
         if (descripcion_servicio != null && !descripcion_servicio.isEmpty()) {
-            servicio.setDescripcion(descripcion_servicio);
+            servicio.setDescripcion_servicio(descripcion_servicio);
         }
         if (tipo_servicio != null && !tipo_servicio.isEmpty()) {
             servicio.setTipo_servicio(tipo_servicio);

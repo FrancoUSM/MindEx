@@ -22,9 +22,12 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
     private int id_servicio;
+    @Column(name = "nombre_servicio")
     private String nombreServicio;
+    @Column(name = "tipo_servicio")
     private String tipo_servicio;
-    private String descripcion;
+    @Column(name = "descripcion_servicio")
+    private String descripcion_servicio;
     private LocalDateTime creado_en;
     private LocalDateTime actualizado_en;
     private LocalDateTime desactivado_en;
