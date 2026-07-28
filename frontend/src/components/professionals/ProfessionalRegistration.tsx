@@ -175,7 +175,27 @@ const onSubmit = async (data: RegistrationData) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
+      if (response.status === 400) {
+        const errorData = await response.json();
+        console.error("Error de validación:", errorData);
+        toast({
+          title: "Error de validación",
+          description: errorData.message || "Datos inválidos",
+          variant: "destructive",
+        });
+      }
+      if (response.status === 409) {
+        const errorData = await response.json();
+        console.error("Error de conflicto:", errorData);
+        toast({
+          title: "Error de conflicto",
+          description: errorData.message || "Conflicto en los datos",
+          variant: "destructive",
+        });
+      }
+
+      throw new Error(`Error en la solicitud: ${response.status}`);
+
     }
 
     const result = await response.json();

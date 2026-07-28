@@ -126,7 +126,37 @@ const registerData = {
     
 
     if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
+      if(response.status === 400){
+
+        throw new Error("Error en los datos enviados. Por favor revisa el formulario.");
+
+      }
+      if (response.status === 409) {
+        throw new Error("El correo ya está registrado. Intenta con otro.");
+      }
+
+      if (response.status === 500) {
+        throw new Error("Error interno del servidor. Intenta de nuevo más tarde.");
+      }
+
+      if (response.status === 503) {
+        throw new Error("Servicio no disponible. Intenta de nuevo más tarde.");
+      }
+
+      if (response.status === 504) {
+        throw new Error("Tiempo de espera agotado. Intenta de nuevo más tarde.");
+      }
+
+      if (response.status === 401) {
+        throw new Error("No autorizado. Verifica tus credenciales.");
+      }
+
+      if (response.status === 403) {
+        throw new Error("Prohibido. No tienes permisos para realizar esta acción.");
+      }
+
+
+      
     }
 
 const result = await response.json();

@@ -2,6 +2,7 @@ package com.bd.mindexa.models.usuario;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Administrativo {
     private int id_administrativo;
     
     @ManyToOne
-    @Column(name = "id_usuario")
+@JoinColumn(name = "id_usuario")
     private Usuario usuario;
     
     private LocalDateTime creado_en;

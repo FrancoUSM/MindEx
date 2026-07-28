@@ -40,9 +40,6 @@ public class Usuario {
     private LocalDateTime actualizado_en;
     private LocalDateTime desactivado_en;
 
-    public Usuario() {
-    }
-
 
 
 
