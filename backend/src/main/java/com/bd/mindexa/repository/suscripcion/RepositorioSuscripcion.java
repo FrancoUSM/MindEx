@@ -10,7 +10,8 @@ import com.bd.mindexa.models.suscripcion.Suscripcion;
 
 public interface RepositorioSuscripcion extends JpaRepository<Suscripcion,Integer>{
 Optional<Suscripcion> findById(int id_suscripcion);
-@Query("SELECT s FROM Suscripcion s JOIN s.empresa e WHERE e.id_empresa = :idEmpresa") // Cambia 'empresaId' por el nombre real de tu propiedad
-Optional<Suscripcion> findByIdEmpresa(@Param("idEmpresa") int idEmpresa);
+@Query("SELECT s FROM Suscripcion s JOIN s.empresa e WHERE e.idEmpresa = :idEmpresa")
+Optional<Suscripcion> obtenerPorEmpresaId(@Param("idEmpresa") int idEmpresa);
+
 
 }
