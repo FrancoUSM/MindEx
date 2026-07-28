@@ -34,17 +34,16 @@ public Administrador getAdministradorById(int id) {
 
 }
 
-public Administrador getAdministradorByUsuarioId(int idUsuario) {
-    return repositorioAdministrador.findByUsuario_IdUsuario(idUsuario)
-            .orElseThrow(() -> new RuntimeException("Administrador no encontrado para el usuario con ID: " + idUsuario));
-
+public Administrador getAdministradorByUsuario(Usuario usuario) {
+    return repositorioAdministrador.findByUsuario(usuario)
+            .orElseThrow(() -> new RuntimeException("Administrador no encontrado para el usuario con ID: " + usuario.getIdUsuario()));
 }
 
 
 public void crearAdministrador(String nombre, String apellido, String correo, String telefono) {
 
     Usuario usuario = new Usuario();
-    usuario.setNombre("Admin");
+    usuario.setNombre(nombre);
     usuario.setApellido(apellido);
     usuario.setCorreo(correo);
     usuario.setTelefono(telefono);

@@ -9,6 +9,6 @@ import com.bd.mindexa.models.usuario.Administrador;
 public interface RepositorioAdministrador extends JpaRepository<Administrador, Integer> {
 
 Optional<Administrador> findById(int id_administrador);
-Optional<Administrador> findByUsuario_IdUsuario(int idUsuario);
+Optional<Administrador> findByUsuario(Usuario usuario);
 
 }
