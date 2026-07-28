@@ -24,7 +24,7 @@ public class ServicioServicio {
         Servicio servicio = new Servicio();
 
         servicio.setNombreServicio(nombre_servicio);
-        servicio.setTipo_servicio(descripcion_servicio);
+        servicio.setDescripcion(descripcion_servicio);
         servicio.setTipo_servicio(tipo_servicio);
         servicio.setCreado_en(LocalDateTime.now());
         servicio.setActualizado_en(LocalDateTime.now());
@@ -33,11 +33,13 @@ public class ServicioServicio {
     }
 
     public void actualizarServicio(Servicio servicio, String nombre_servicio, String descripcion_servicio, String tipo_servicio){
-        if (nombre_servicio.equals(servicio.getNombreServicio())) {
+        if (nombre_servicio != null && !nombre_servicio.isEmpty()) {
             servicio.setNombreServicio(nombre_servicio);
-        }if (descripcion_servicio.equals(tipo_servicio)) {
+        }
+        if (descripcion_servicio != null && !descripcion_servicio.isEmpty()) {
             servicio.setDescripcion(descripcion_servicio);
-        }if (tipo_servicio.equals(servicio.getTipo_servicio())) {
+        }
+        if (tipo_servicio != null && !tipo_servicio.isEmpty()) {
             servicio.setTipo_servicio(tipo_servicio);
         }
         servicio.setActualizado_en(LocalDateTime.now());
