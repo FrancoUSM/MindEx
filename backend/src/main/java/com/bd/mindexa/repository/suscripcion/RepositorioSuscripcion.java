@@ -8,5 +8,5 @@ import com.bd.mindexa.models.suscripcion.Suscripcion;
 
 public interface RepositorioSuscripcion extends JpaRepository<Suscripcion,Integer>{
 Optional<Suscripcion> findById(int id_suscripcion);
-Optional<Suscripcion> findByIdEmpresa(int id_empresa); 
+Optional<Suscripcion> findByIdEmpresa(int idEmpresa); 
 }

@@ -62,7 +62,7 @@ public class ServicioEmpleado {
     empleado.setContratista(request.contratista);
     empleado.setCreado_en(LocalDateTime.now());
     empleado.setActualizado_en(LocalDateTime.now());
-    Suscripcion suscripcion = repositorioSuscripcion.findByIdEmpresa(empresa.getId_empresa())
+    Suscripcion suscripcion = repositorioSuscripcion.findByIdEmpresa(empresa.getIdEmpresa())
             .orElseThrow(() -> new RuntimeException("Suscripción no encontrada para la empresa"));
 
     orquestadorPaciente.crearPacienteYAsignarSuscripcion(usuario.getIdUsuario(), suscripcion.getId_suscripcion());
