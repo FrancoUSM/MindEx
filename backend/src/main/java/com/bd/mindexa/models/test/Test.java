@@ -34,7 +34,8 @@ public class Test {
     private Servicio servicio;
     
     private String nombre_test;
-    private String descripcion;
+    @Column(name = "descripcion_test")
+    private String descripcion_test;
     private LocalDateTime creado_en;
     private LocalDateTime actualizado_en;
     private LocalDateTime desactivado_en;
