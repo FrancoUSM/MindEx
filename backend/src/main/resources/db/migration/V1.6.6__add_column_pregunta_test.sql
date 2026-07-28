@@ -1,0 +1,1 @@
+alter table pregunta_test add column orden_pregunta INT;
