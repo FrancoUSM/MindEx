@@ -39,11 +39,11 @@ interface SubscriptionItem {
   fecha_inicio: string;
   fecha_fin: string;
   plan?: PlanItem;
-  empresa?: { id_empresa: number; razonSocial?: string; nombre_comercial?: string };
+  empresa?: { idEmpresa: number; razonSocial?: string; nombre_comercial?: string };
 }
 
 interface CompanyItem {
-  id_empresa: number;
+  idEmpresa: number;
   razonSocial: string;
   nombre_comercial: string;
   correo: string;
@@ -58,7 +58,7 @@ interface ServiceItem {
 }
 
 const emptyTestForm = { id_servicio: "", nombre_test: "", descripcion: "", questions: [] as { text: string; order: number }[] };
-const emptySubscriptionForm = { id_empresa: "", id_plan: "", fecha_inicio: "", fecha_fin: "" };
+const emptySubscriptionForm = { idEmpresa: "", id_plan: "", fecha_inicio: "", fecha_fin: "" };
 const emptyServiceForm = { nombre_servicio: "", descripcion_servicio: "", tipo_servicio: "" };
 
 export default function AdministradorPage() {
@@ -301,7 +301,7 @@ export default function AdministradorPage() {
 
   const saveSubscription = async (event: FormEvent) => {
     event.preventDefault();
-    if (!subscriptionForm.id_empresa || !subscriptionForm.id_plan || !subscriptionForm.fecha_inicio || !subscriptionForm.fecha_fin) {
+    if (!subscriptionForm.idEmpresa || !subscriptionForm.id_plan || !subscriptionForm.fecha_inicio || !subscriptionForm.fecha_fin) {
       setError("Completa todos los campos de la suscripción");
       setSuccess(null);
       return;
@@ -318,7 +318,7 @@ export default function AdministradorPage() {
       const response = await authFetch(endpoint, {
         method: editingSubscriptionId ? "PUT" : "POST",
         body: JSON.stringify({
-          id_empresa: Number(subscriptionForm.id_empresa),
+          idEmpresa: Number(subscriptionForm.idEmpresa),
           id_plan: Number(subscriptionForm.id_plan),
           fecha_inicio: subscriptionForm.fecha_inicio,
           fecha_fin: subscriptionForm.fecha_fin,
@@ -361,7 +361,7 @@ export default function AdministradorPage() {
   const startEditSubscription = (item: SubscriptionItem) => {
     setEditingSubscriptionId(item.id_suscripcion);
     setSubscriptionForm({
-      id_empresa: item.empresa?.id_empresa?.toString() ?? "",
+      idEmpresa: item.empresa?.idEmpresa?.toString() ?? "",
       id_plan: item.plan?.id_plan?.toString() ?? "",
       fecha_inicio: item.fecha_inicio ?? "",
       fecha_fin: item.fecha_fin ?? "",
@@ -542,14 +542,14 @@ export default function AdministradorPage() {
                 <form onSubmit={saveSubscription} className="space-y-4 rounded-xl border p-4">
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="id_empresa">Empresa</Label>
-                      <Select value={subscriptionForm.id_empresa} onValueChange={(value) => setSubscriptionForm({ ...subscriptionForm, id_empresa: value })}>
-                        <SelectTrigger id="id_empresa">
+                      <Label htmlFor="idEmpresa">Empresa</Label>
+                      <Select value={subscriptionForm.idEmpresa} onValueChange={(value) => setSubscriptionForm({ ...subscriptionForm, idEmpresa: value })}>
+                        <SelectTrigger id="idEmpresa">
                           <SelectValue placeholder="Selecciona una empresa" />
                         </SelectTrigger>
                         <SelectContent>
                           {companies.map((company) => (
-                            <SelectItem key={company.id_empresa} value={company.id_empresa.toString()}>
+                            <SelectItem key={company.idEmpresa} value={company.idEmpresa.toString()}>
                               {company.nombre_comercial || company.razonSocial}
                             </SelectItem>
                           ))}
@@ -590,7 +590,7 @@ export default function AdministradorPage() {
                       {subscriptions.map((item) => (
                         <div key={item.id_suscripcion} className="flex flex-col gap-2 rounded-xl border p-3 md:flex-row md:items-center md:justify-between">
                           <div>
-                            <p className="font-medium">{item.empresa?.razonSocial || item.empresa?.nombre_comercial || `Empresa ${item.empresa?.id_empresa ?? "-"}`}</p>
+                            <p className="font-medium">{item.empresa?.razonSocial || item.empresa?.nombre_comercial || `Empresa ${item.empresa?.idEmpresa ?? "-"}`}</p>
                             <p className="text-sm text-slate-500">{item.plan?.nombre_plan || "Plan sin nombre"} · {item.fecha_inicio} a {item.fecha_fin}</p>
                           </div>
                           <div className="flex gap-2">
@@ -673,7 +673,7 @@ export default function AdministradorPage() {
                 {loading ? <p className="text-sm text-slate-500">Cargando...</p> : companies.length === 0 ? <p className="text-sm text-slate-500">No hay empresas registradas.</p> : (
                   <div className="space-y-2">
                     {companies.map((company) => (
-                      <div key={company.id_empresa} className="rounded-xl border p-3">
+                      <div key={company.idEmpresa} className="rounded-xl border p-3">
                         <div className="flex flex-wrap items-center justify-between gap-2">
                           <div>
                             <p className="font-medium">{company.razonSocial}</p>
