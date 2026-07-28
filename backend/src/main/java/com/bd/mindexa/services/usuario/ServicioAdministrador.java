@@ -37,7 +37,7 @@ public Administrador getAdministradorById(int id) {
 public Administrador getAdministradorByUsuarioId(int idUsuario) {
     Usuario usuario = repositorioUsuario.findById(idUsuario)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + idUsuario));
-    return repositorioAdministrador.findByIdUsuario(idUsuario)
+    return repositorioAdministrador.findByUsuarioIdUsuario(idUsuario)
             .orElseThrow(() -> new RuntimeException("Administrador no encontrado para el usuario con ID: " + idUsuario));
 }
 
